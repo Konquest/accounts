@@ -4,7 +4,9 @@
   "description": "Generic OAuth2 server for SSO",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "pretest": "jshint config db index.js app test",
+    "test": "mocha",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +24,8 @@
     "jshint": "~2.3.0"
   },
   "dependencies": {
-    "express-restify-mongoose": "~0.3.3",
     "express": "~3.4.3",
-    "mongoose": "~3.6.20"
+    "mongoose": "~3.6.20",
+    "bcrypt": "~0.7.7"
   }
 }
