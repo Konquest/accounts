@@ -3,5 +3,5 @@ var oauth2 = require('./oauth2'),
 
 module.exports.setup = function(app) {
     app.get('/', controllers.index);
-    app.get('/sessions', controllers.sessions.index)
+    app.get('/sessions', controllers.sessions.index);
 };
