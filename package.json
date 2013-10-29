@@ -26,6 +26,14 @@
   "dependencies": {
     "express": "~3.4.3",
     "mongoose": "~3.6.20",
-    "bcrypt": "~0.7.7"
+    "bcrypt": "~0.7.7",
+    "oauth2orize": "~1.0.0",
+    "node-uuid": "~1.4.1",
+    "passport": "~0.1.17",
+    "passport-http": "~0.2.2",
+    "passport-oauth2-client-password": "~0.1.1",
+    "passport-local": "~0.1.6",
+    "passport-http-bearer": "~1.0.1",
+    "uid2": "0.0.3"
   }
 }

@@ -3,9 +3,11 @@ var mongoose = require('mongoose'),
     ObjectId = Schema.Types.ObjectId,
     Mixed = Schema.Types.Mixed,
     bcrypt = require('bcrypt'),
+    uuid = require('node-uuid'),
     SALT_WORK_FACTOR = 10;
 
 var UserSchema = new Schema({
+    _id: {type: String, default: uuid.v1},
     username: {type: String, required: true, index: {unique: true}},
     password: {type: String, required: true},
     name: {type: String, required: true},
@@ -15,19 +17,15 @@ var UserSchema = new Schema({
 
 UserSchema.pre('save', function(next) {
     var user = this;
+    
+    if (!user.isModified('password')) return next(); // only hash the password if it has been modified (or is new)
 
-    // only hash the password if it has been modified (or is new)
-    if (!user.isModified('password')) return next();
-
-    // generate a salt
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
         if (err) return next(err);
 
-        // hash the password using our new salt
-        bcrypt.hash(user.password, salt, function(err, hash) {
+        bcrypt.hash(user.password, salt, function(err, hash) { // hash the password using our new salt
             if (err) return next(err);
 
-            // override the cleartext password with the hashed one
             user.password = hash;
             next();
         });
