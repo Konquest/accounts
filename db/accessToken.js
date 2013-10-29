@@ -1,4 +1,4 @@
-var config = require('./config'),
+var config = require('../config'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId,
@@ -12,9 +12,9 @@ var defaultToken = function() {
 
 var AccessTokenSchema = new Schema({
     token: {type: String, default: defaultToken, index: {unique: true}},
-    user: {type: ObjectId, ref: 'User'},
-    client: {type: ObjectId, ref: 'Client'},
-    scope: Mixed,
+    user: {type: String, ref: 'User'},
+    application: {type: String, ref: 'Application'},
+    scope: [String],
     expires: {type: Date, default: Date.now, expires: 0}
 });
 

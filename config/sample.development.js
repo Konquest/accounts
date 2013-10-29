@@ -1,9 +1,14 @@
 module.exports = {
     port: 8080,
     db: 'mongodb://localhost/accounts',
+    session: {
+        age: 7200000,
+        key: 'SID',
+        secret: '2613' // chosen by four fair dice rolls; guarenteed to be random
+    },
     oauth2: {
         features: {
-            client: true,
+            client: false,
             code: true,
             implicit: true,
             password: true

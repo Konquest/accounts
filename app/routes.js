@@ -1,5 +1,7 @@
-var controllers = require('./controllers');
+var oauth2 = require('./oauth2'),
+    controllers = require('./controllers');
 
 module.exports.setup = function(app) {
-    app.get('/', controllers.root.index);
+    app.get('/', controllers.index);
+    app.get('/sessions', controllers.sessions.index)
 };

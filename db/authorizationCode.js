@@ -1,4 +1,4 @@
-var config = require('./config'),
+var config = require('../config'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId,
@@ -8,15 +8,15 @@ var config = require('./config'),
 
 var defaultCode = function() {
     return uid(config.oauth2.authorizationCode.length);
-}
+};
 
 var AuthorizationCodeSchema = new Schema({
     code: {type: String, default: defaultCode, index: {unique: true}},
-    user: {type: ObjectId, ref: 'User'},
-    client: {type: ObjectId, ref: 'Client'},
+    user: {type: String, ref: 'User'},
+    application: {type: String, ref: 'Application'},
     redirectUri: {type: String, required: true},
     state: String,
-    scope: Mixed,
+    scope: [String],
     expires: {type: Date, default: Date.now, expires: 0}    // 10 minutes
 });
 

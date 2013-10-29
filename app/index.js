@@ -1,18 +1,28 @@
 var express = require('express'),
     passport = require('passport'),
     config = require('../config'),
+    auth = require('./auth'),
     routes = require('./routes');
 
-var app = express();
+var SessionStore = express.session.MemoryStore;
+var app = module.exports.server = express();
 
 module.exports.config = config;    
 module.exports.init = function() {
     app.configure(function() {
         app.set('port', process.env.PORT || config.port);
         app.set('views', __dirname + '/views');
+        app.set('view engine', 'jade');
         app.use(express.logger());
+        app.use(express.cookieParser());
         app.use(express.bodyParser());
         app.use(express.methodOverride());
+        app.use(express.session({
+            key: config.session.key,
+            secret: config.session.secret,
+            store: new SessionStore(),
+            maxAge: config.session.age
+        }));
         app.use(passport.initialize());
         app.use(passport.session());
         app.use(app.router);
@@ -30,6 +40,7 @@ module.exports.init = function() {
         app.use(express.errorHandler({ dumpExceptions: true }));
     });
 
+    auth.setup(app);
     routes.setup(app);
     
     app.listen(app.get('port'), function() {

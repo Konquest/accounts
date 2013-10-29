@@ -12,7 +12,7 @@ var UserSchema = new Schema({
     password: {type: String, required: true},
     name: {type: String, required: true},
     email: {type: String, required: true, index: {unique: true}},
-    roles: {type: [String], default: ['user']}
+    applications: {type: [String], ref: 'Application', default: []}
 });
 
 UserSchema.pre('save', function(next) {
