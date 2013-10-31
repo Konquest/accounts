@@ -2,6 +2,10 @@
   "name": "accounts",
   "version": "0.0.0",
   "description": "Generic OAuth2 server for SSO",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
   "main": "index.js",
   "scripts": {
     "pretest": "jshint config db index.js app test",
@@ -35,6 +39,7 @@
     "passport-local": "~0.1.6",
     "passport-http-bearer": "~1.0.1",
     "uid2": "0.0.3",
-    "jade": "~0.35.0"
+    "jade": "~0.35.0",
+    "connect-ensure-login": "~0.1.1"
   }
 }

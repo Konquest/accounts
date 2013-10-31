@@ -7,7 +7,6 @@ var express = require('express'),
 var SessionStore = express.session.MemoryStore;
 var app = module.exports.server = express();
 
-module.exports.config = config;    
 module.exports.init = function() {
     app.configure(function() {
         app.set('port', process.env.PORT || config.port);
