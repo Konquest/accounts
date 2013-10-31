@@ -10,6 +10,7 @@
   "scripts": {
     "pretest": "jshint config db index.js app test",
     "test": "mocha",
+    "prestart": "jshint config db index.js app",
     "start": "node index.js"
   },
   "repository": {
