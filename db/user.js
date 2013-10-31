@@ -1,4 +1,5 @@
-var mongoose = require('mongoose'),
+var __ = require('underscore'),
+    mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId,
     Mixed = Schema.Types.Mixed,
@@ -12,6 +13,8 @@ var UserSchema = new Schema({
     password: {type: String, required: true},
     name: {type: String, required: true},
     email: {type: String, required: true, index: {unique: true}},
+    created: {type: Date, default: Date.now},
+    modified: {type: Date, default: Date.now},
     applications: {type: [String], ref: 'Application', default: []}
 });
 
@@ -27,7 +30,7 @@ UserSchema.pre('save', function(next) {
             if (err) return next(err);
 
             user.password = hash;
-            next();
+            return next();
         });
     });
 });
@@ -35,8 +38,12 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
         if (err) return cb(err);
-        cb(null, isMatch);
+        return cb(null, isMatch);
     });
+};
+
+UserSchema.methods.normalize = function() {
+    return __.pick(this.toJSON({getters: true}), 'id', 'name', 'username', 'created');
 };
 
 module.exports = mongoose.model('User', UserSchema);

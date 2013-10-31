@@ -1,5 +1,6 @@
 module.exports = {
     port: 8080,
+    logger: 'default',
     db: 'mongodb://localhost/accounts',
     session: {
         age: 7200000,

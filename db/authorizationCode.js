@@ -17,6 +17,7 @@ var AuthorizationCodeSchema = new Schema({
     redirectUri: {type: String, required: true},
     state: String,
     scope: [String],
+    created: {type: Date, default: Date.now},
     expires: {type: Date, default: Date.now, expires: 0}    // 10 minutes
 });
 

@@ -2,3 +2,8 @@ extends ./application.jade
 
 block content
     p TODO: Account Dashboard
+    
+    if currentUser
+        p= currentUser.name
+    else
+        a(href="/session") Login

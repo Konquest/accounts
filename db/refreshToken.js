@@ -15,6 +15,7 @@ var RefreshTokenSchema = new Schema({
     user: {type: String, ref: 'User'},
     application: {type: String, ref: 'Application'},
     scope: [String],
+    created: {type: Date, default: Date.now},
     expires: {type: Date, default: Date.now, expires: 0}
 });
 

@@ -12,7 +12,7 @@ module.exports.init = function() {
         app.set('port', process.env.PORT || config.port);
         app.set('views', __dirname + '/views');
         app.set('view engine', 'jade');
-        app.use(express.logger());
+        app.use(express.logger(config.logger));
         app.use(express.cookieParser());
         app.use(express.bodyParser());
         app.use(express.methodOverride());
@@ -24,6 +24,10 @@ module.exports.init = function() {
         }));
         app.use(passport.initialize());
         app.use(passport.session());
+        app.use(function(req, res, next) {
+            if (req.user) res.locals.currentUser = req.user;
+            return next();
+        });
         app.use(app.router);
     });
     

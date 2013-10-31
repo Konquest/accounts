@@ -4,9 +4,18 @@ html
         meta(charset='utf-8')
         title Konquest
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        //link(rel='stylesheet', href='/public/stylesheets/all.css')
-        // include ./includes/stability.jade
+        link(href='http://fonts.googleapis.com/css?family=Bigelow+Rules', rel='stylesheet', type='text/css')
     body
+        header
+            ul
+                li
+                    a(href="/") Home
+                li
+                    if currentUser
+                        a(href="/me") My Profile
+                    else
+                        a(href="/session") Login
+                        
         // include ./includes/ribbon.jade
         .container
             // include ./includes/header.jade

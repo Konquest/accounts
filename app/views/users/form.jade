@@ -1,0 +1,23 @@
+extends ../application.jade
+
+block content
+    p New User
+    form(method="post")
+        div.name
+            span Full Name
+            input(name="name", type="text", autofocus)
+        div.email
+            span Email
+            input(name="email", type="email")
+        div.username
+            span Username
+            input(name="username", type="text")
+        div.password
+            span Password
+            input(name="password", type="password")
+        div.confirm
+            span Confirm Password
+            input(name="confirm", type="password")
+            
+        input(name="submit", type="submit")
+    

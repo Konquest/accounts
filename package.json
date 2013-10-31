@@ -40,6 +40,8 @@
     "passport-http-bearer": "~1.0.1",
     "uid2": "0.0.3",
     "jade": "~0.35.0",
-    "connect-ensure-login": "~0.1.1"
+    "connect-ensure-login": "~0.1.1",
+    "passport-anonymous": "~1.0.1",
+    "underscore": "~1.5.2"
   }
 }

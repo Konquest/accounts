@@ -1,4 +1,5 @@
 var passport = require('passport'),
+    AnonymousStrategy = require('passport-anonymous').Strategy,
     LocalStrategy = require('passport-local').Strategy,
     BasicStrategy = require('passport-http').BasicStrategy,
     ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy,
@@ -8,15 +9,22 @@ var passport = require('passport'),
 
 
 module.exports.setup = function(app) {
+    // Anonymous
+    passport.use(new AnonymousStrategy());
+    
     // Password strategy
     passport.use(new LocalStrategy(
         function (username, password, done) {
             db.User.findOne({username: username}, function (err, user) {
                 if (err) return done(err);
                 if (!user) return done(null, false);
-                if (!user.comparePassword(password)) return done(null, false);
                 
-                return done(null, user);
+                user.comparePassword(password, function(err, isMatch) {
+                    if (err) return done(err);
+                    if (!isMatch) return done(null, false);
+                    
+                    return done(null, user.normalize());
+                });
             });
         }
     ));
