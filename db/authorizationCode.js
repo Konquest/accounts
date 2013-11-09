@@ -3,7 +3,6 @@ var config = require('../config'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId,
     Mixed = Schema.Types.Mixed,
-    uuid = require('node-uuid'),
     uid = require('uid2');
 
 var defaultCode = function() {
