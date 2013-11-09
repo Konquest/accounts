@@ -12,7 +12,7 @@ module.exports.init = function() {
         app.set('port', process.env.PORT || config.port);
         app.set('views', __dirname + '/views');
         app.set('view engine', 'jade');
-        app.use(express.logger(config.logger));
+        app.use(express.logger(config.logger || '[:date] :remote-addr ":method :url HTTP/:http-version" :status :res[content-length]b ":user-agent"'));
         app.use(express.cookieParser());
         app.use(express.bodyParser());
         app.use(express.methodOverride());
@@ -30,11 +30,11 @@ module.exports.init = function() {
         });
         app.use(app.router);
     });
-    
+
     app.configure('development', function() {
         app.use(express.errorHandler({ dumpExceptions: true, showMessage: true, showStack: true }));
     });
-    
+
     app.configure('staging', function() {
         app.use(express.errorHandler({ dumpExceptions: true }));
     });
@@ -45,7 +45,7 @@ module.exports.init = function() {
 
     auth.setup(app);
     routes.setup(app);
-    
+
     app.listen(app.get('port'), function() {
         console.log('Application listening on port %d in %s mode', app.get('port'), app.settings.env);
     });
