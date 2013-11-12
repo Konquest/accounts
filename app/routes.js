@@ -2,6 +2,8 @@ var login = require('connect-ensure-login'),
     oauth2 = require('./oauth2'),
     controllers = require('./controllers');
 
+// Route to Controller Dispatcher
+
 module.exports.setup = function(app) {
     var loginCheck = login.ensureLoggedIn('/session');
     
@@ -24,7 +26,7 @@ module.exports.setup = function(app) {
     app.post('/users/new', controllers.users.create);    // Registration alias
     
     app.get('/users/:username', loginCheck, controllers.users.show);    // Specific user profile page
-    app.delete('/users/:username', loginCheck, controllers.users.wip);    // User mark for delete (only if self)
+    //app.delete('/users/:username', loginCheck, controllers.users.wip);    // User mark for delete (only if self)
     
     app.get('/applications', loginCheck, controllers.applications.wip);    // Applications listing + search
     app.get('/applications/new', loginCheck, controllers.applications.wip); // New application form

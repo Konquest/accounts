@@ -33,7 +33,8 @@ module.exports.create = function(req, res, next) {
                 res.redirect('/users/' + user.username);
             },
             json: function() {
-                res.json(user);
+                res.set('Location', '/users/' + user.username);
+                res.json(201, user);  // Created
             }
         });
     });

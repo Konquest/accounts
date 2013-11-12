@@ -8,8 +8,8 @@ var mongoose = require('mongoose'),
 var ApplicationSchema = new Schema({
     _id: {type: String, default: uuid.v1},
     name: {type: String, required: true},
+    trusted: {type: Boolean, default: false},    // Whether this is a trusted interal application or not.
     secret: {type: String, default: uuid.v1},
-    trusted: {type: Boolean, default: false},
     created: {type: Date, default: Date.now},
     modified: {type: Date, default: Date.now}
 });

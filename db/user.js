@@ -13,9 +13,9 @@ var UserSchema = new Schema({
     password: {type: String, required: true},
     name: {type: String, required: true},
     email: {type: String, required: true, index: {unique: true}},
+    applications: {type: [String], ref: 'Application', default: []},
     created: {type: Date, default: Date.now},
-    modified: {type: Date, default: Date.now},
-    applications: {type: [String], ref: 'Application', default: []}
+    modified: {type: Date, default: Date.now}
 });
 
 UserSchema.pre('save', function(next) {
