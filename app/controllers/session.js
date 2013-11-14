@@ -8,7 +8,7 @@ module.exports.login = function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) return next(err);
         if (!user) {
-            req.flash('error', 'Incorrect Username/Password'
+            req.flash('error', 'Incorrect Username/Password');
             return res.render('/session/index');
         }
         req.login(user, function(err) {

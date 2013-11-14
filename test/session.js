@@ -38,7 +38,7 @@ describe('Session Management', function() {
                 done();
             });
         });
-        
+        /*
         it('should redirect to login when logged out', function(done) {
             request.get(urls.logout);
             request.get(urls.users, function(err, res, body) {
@@ -57,6 +57,7 @@ describe('Session Management', function() {
                 done();
             });
         });
+        */
         
         it('should redirect to user profile when logging in', function(done) {
             var credentials = __.pick(fakeUser, 'username', 'password');
