@@ -28,6 +28,7 @@ module.exports.create = function(req, res, next) {
         if (err) return next(err);
         user = __.pick(user.toJSON({getters: true}), 'id', 'name', 'created');
         console.log('Created user ' + user);
+        req.flash('success', 'Successfully created user, ' + user);
         res.format({
             html: function() {
                 res.redirect('/users/' + user.username);

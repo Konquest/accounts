@@ -18,6 +18,19 @@ var UserSchema = new Schema({
     modified: {type: Date, default: Date.now}
 });
 
+UserSchema.path('email').validate(function (email) {
+    var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    return emailRegex.test(email);
+}, 'must be an email address');
+
+UserSchema.path('username').validate(function (username) {
+    return username.length >= 4;
+}, 'must be 4 characters or more');
+
+UserSchema.path('password').validate(function (password) {
+    return password.length >= 4;
+}, 'must be 4 characters or more');
+
 UserSchema.pre('save', function(next) {
     var user = this;
     
@@ -43,7 +56,7 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 UserSchema.methods.normalize = function() {
-    return __.pick(this.toJSON({getters: true}), 'id', 'name', 'username', 'created');
+    return __.pick(this.toJSON({getters: true}), 'id', 'name', 'username');
 };
 
 module.exports = mongoose.model('User', UserSchema);

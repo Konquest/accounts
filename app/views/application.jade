@@ -10,12 +10,16 @@ html
             ul
                 li
                     a(href="/") Home
-                li
-                    if currentUser
-                        a(href="/me") My Profile
-                    else
+                if currentUser
+                    li
+                        a(href="/users/" + currentUser.username) My Profile
+                    li
+                        a(href="/session/logout") Sign Out
+                else
+                    li
                         a(href="/session") Login
-                        
+
+        include ./_flash.jade
         // include ./includes/ribbon.jade
         .container
             // include ./includes/header.jade

@@ -12,7 +12,7 @@ module.exports.setup = function(app) {
     app.get('/session', controllers.session.index);    // Login form
     app.post('/session', controllers.session.login);    // Login
     app.delete('/session', controllers.session.logout);    // Logout
-    app.get('/session/delete', controllers.session.logout);    // Logout
+    app.get('/session/logout', controllers.session.logout);    // Logout
     
     /*
     app.get('/me', loginCheck, controllers.users.showSelf);    // User profile page

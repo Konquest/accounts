@@ -7,10 +7,15 @@ module.exports.index = function(req, res, next) {
 module.exports.login = function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) return next(err);
-        if (!user) return res.redirect('/login');
+        if (!user) {
+            req.flash('error', 'Incorrect Username/Password'
+            return res.render('/session/index');
+        }
         req.login(user, function(err) {
             if (err) return next(err);
-            return res.redirect('/users/' + user.username);
+
+            var redirect = req.query.redirect || req.body.redirect || '/users/' + user.username;
+            return res.redirect(redirect);
         });
     })(req, res, next);
 };

@@ -2,7 +2,7 @@ extends ../application.jade
 
 block content
     p New User
-    form(method="post")
+    form(method="post", action="/users")
         div.name
             span Full Name
             input(name="name", type="text", autofocus)
