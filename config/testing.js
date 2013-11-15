@@ -1,5 +1,5 @@
 module.exports = {
-    port: 3000,
+    port: 8080,
     db: 'mongodb://test:test@ds035348.mongolab.com:35348/unit-test',
     logger: false,
     session: {

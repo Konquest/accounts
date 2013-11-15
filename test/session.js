@@ -1,6 +1,7 @@
 var request = require('request'),
     assert = require('assert'),
     faker = require('Faker'),
+    config = require('../config'),
     app = require('../index'),
     db = require('../db'),
     __ = require('underscore');
@@ -8,9 +9,9 @@ var request = require('request'),
 var request = request.defaults({jar: true});
 
 var urls = {
-    logout: 'http://localhost:3000/session/logout',
-    users: 'http://localhost:3000/users',
-    session: 'http://localhost:3000/session'
+    logout: 'http://localhost:' + config.port + '/session/logout',
+    users: 'http://localhost:' + config.port + '/users',
+    session: 'http://localhost:' + config.port + '/session'
 };
 
 describe('Session Management', function() {
@@ -38,12 +39,12 @@ describe('Session Management', function() {
                 done();
             });
         });
-        /*
+
         it('should redirect to login when logged out', function(done) {
             request.get(urls.logout);
             request.get(urls.users, function(err, res, body) {
                 assert.ifError(err);
-                assert.equal(res.headers.location, '/session');
+                assert.equal(res.req.path, '/session');
                 done();
             });
         });
@@ -52,12 +53,10 @@ describe('Session Management', function() {
             var credentials = __.pick(fakeUser, 'username');
             request.get(urls.session, {form: credentials}, function(err, res, body) {
                 assert.ifError(err);
-                console.log(res.headers);
-                assert.equal(res.headers.location, '/session');
+                assert.equal(res.req.path, '/session');
                 done();
             });
         });
-        */
         
         it('should redirect to user profile when logging in', function(done) {
             var credentials = __.pick(fakeUser, 'username', 'password');
