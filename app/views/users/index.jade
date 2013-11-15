@@ -1,0 +1,6 @@
+extends ../application.jade
+
+block content
+    each user in users
+        div.user
+            h2= user.username

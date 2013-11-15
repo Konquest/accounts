@@ -4,7 +4,7 @@ var db = require('../../db'),
 module.exports.search = function(req, res, next) {
     db.User.find().lean().exec(function(err, users) {
         if (err) return next(err);
-        users = __.map(users, function(value) { return {id: value.id, username: value.username}; });
+        users = __.map(users, function(value) { return __.pick(value, 'id', 'username'); });
         
         res.format({
             html: function() {
