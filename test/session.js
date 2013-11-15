@@ -1,26 +1,15 @@
 var request = require('request'),
     assert = require('assert'),
-    faker = require('Faker'),
     config = require('../config'),
+    common = require('./common'),
     app = require('../index'),
     db = require('../db'),
     __ = require('underscore');
 
 var request = request.defaults({jar: true}),
-    fakeUser = {
-        username: faker.Internet.userName(),
-        password: 'password',
-        name: faker.Name.findName(),
-        email: faker.Internet.email()
-    },
+    fakeUser = common.fixtures.newUser,
     host = 'http://localhost:' + config.port,
-    urls = {
-        logout: '/session/logout',
-        home: '/',
-        users: '/users',
-        profile: '/users/' + fakeUser.username,
-        session: '/session'
-    };
+    urls = common.urls;
 
 describe('Session Management', function() {
     app.start(function() {
@@ -52,7 +41,7 @@ describe('Session Management', function() {
         
         it('should redirect to login when failing to login', function(done) {
             var credentials = __.pick(fakeUser, 'username');
-            request.get(host + urls.session, {form: credentials}, function(err, res, body) {
+            request.post(host + urls.session, {form: credentials}, function(err, res, body) {
                 assert.ifError(err);
                 assert.equal(res.req.path, urls.session);
                 done();

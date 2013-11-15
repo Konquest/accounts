@@ -26,12 +26,12 @@ module.exports.create = function(req, res, next) {
     
     db.User.create(user, function(err, user) {
         if (err) return next(err);
-        user = __.pick(user.toJSON({getters: true}), 'id', 'name', 'created');
-        console.log('Created user ' + user);
-        req.flash('success', 'Successfully created user, ' + user);
+        user = __.pick(user.toJSON({getters: true}), 'id', 'name', 'username', 'created');
+        req.flash('success', 'Successfully created user, ' + user.username);
+        
         res.format({
             html: function() {
-                res.redirect('/users/' + user.username);
+                res.redirect('/session');
             },
             json: function() {
                 res.set('Location', '/users/' + user.username);

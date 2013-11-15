@@ -1,11 +1,15 @@
 var express = require('express'),
     db = require('./db'),
     app = require('./app'),
+    started = false,
     start;
 
 module.exports.start = start = function(callback) {
-    db.init();
-    app.init();
+    if (!started) {
+        started = true;
+        db.init();
+        app.init();
+    }
     
     if (callback) callback.call(app);
 };

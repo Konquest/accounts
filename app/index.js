@@ -31,6 +31,11 @@ module.exports.init = function() {
         app.use(function(req, res, next) {
             res.locals.flash = req.flash();
             if (req.user) res.locals.currentUser = req.user;
+            
+            req.flashNow = function(type, msg) {
+                res.locals.flash[type] = msg;
+            };
+            
             return next();
         });
         app.use(app.router);

@@ -1,15 +1,15 @@
 var passport = require('passport');
 
 module.exports.index = function(req, res, next) {
-    res.render('session/index', {redirectUri: req.session.returnTo});
+    res.render('session/index', {user: {}, redirectUri: req.session.returnTo});
 };
 
 module.exports.login = function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) return next(err);
         if (!user) {
-            req.flash('error', 'Incorrect Username/Password');
-            return res.render('/session/index');
+            req.flashNow('error', 'Incorrect Username/Password');
+            return res.render('session/index', {user: req.body});
         }
         req.login(user, function(err) {
             if (err) return next(err);
@@ -22,5 +22,6 @@ module.exports.login = function(req, res, next) {
 
 module.exports.logout = function (req, res) {
     req.logout();
+    req.flash('error', 'Successfully logged out');
     res.redirect('/');
 };

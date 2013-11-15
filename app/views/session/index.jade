@@ -6,7 +6,7 @@ block content
     form(method="post")
         div.username
             span Username
-            input(name="username", type="text", autofocus)
+            input(name="username", type="text", value=(user.username || ""), autofocus)
         div.password
             span Password
             input(name="password", type="password")
