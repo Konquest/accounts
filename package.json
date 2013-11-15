@@ -28,7 +28,8 @@
     "jshint": "~2.3.0",
     "grunt-cli": "~0.1.10",
     "request": "~2.27.0",
-    "Faker": "~0.5.11"
+    "Faker": "~0.5.11",
+    "should": "~2.1.0"
   },
   "dependencies": {
     "express": "~3.4.3",

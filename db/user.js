@@ -5,32 +5,53 @@ var __ = require('underscore'),
     Mixed = Schema.Types.Mixed,
     bcrypt = require('bcrypt'),
     uuid = require('node-uuid'),
+    isArray = require('util').isArray,
     SALT_WORK_FACTOR = 10;
 
+// Definition
 var UserSchema = new Schema({
     _id: {type: String, default: uuid.v1},
     username: {type: String, required: true, index: {unique: true}},
     password: {type: String, required: true},
     name: {type: String, required: true},
     email: {type: String, required: true, index: {unique: true}},
+    roles: {type: [String], default: ['user']}, 
     applications: {type: [String], ref: 'Application', default: []},
     created: {type: Date, default: Date.now},
     modified: {type: Date, default: Date.now}
 });
 
+UserSchema.roles = ['user', 'admin'];
+
+// Validation
 UserSchema.path('email').validate(function (email) {
     var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailRegex.test(email);
 }, 'must be an email address');
 
 UserSchema.path('username').validate(function (username) {
-    return username.length >= 4;
-}, 'must be 4 characters or more');
+    return username.length >= 3;
+}, 'must be 3 characters or more');
 
 UserSchema.path('password').validate(function (password) {
     return password.length >= 4;
 }, 'must be 4 characters or more');
 
+UserSchema.path('roles').validate(function(roles) { 
+    var possibleRoles = UserSchema.roles,
+        valid = true; 
+    
+    roles.forEach(function(role) {
+        if (possibleRoles.indexOf(role) === -1) {
+            valid = false;
+            return;
+        }
+    });
+    
+    return roles.length > 0 && valid;
+}, 'roles not valid'); 
+
+// Operations
 UserSchema.pre('save', function(next) {
     var user = this;
     
@@ -59,4 +80,37 @@ UserSchema.methods.normalize = function() {
     return __.pick(this.toJSON({getters: true}), 'id', 'name', 'username');
 };
 
+UserSchema.methods.isA = function(role) {
+    return ~UserSchema.roles.indexOf(role);
+};
+
+UserSchema.statics.migrate = function(models) {
+    var update = function(model) {
+        var changed = false;
+        
+        Object.keys(UserSchema.tree).forEach(function(fieldName) {
+            var field = UserSchema.tree[fieldName];
+            
+            if (field.default && !model[fieldName]) {
+                model[fieldName] = __.result(field, 'default');
+                changed = true;
+            }
+        });
+        
+        if (changed) {
+            console.log('Auto migrated missing fields to defaults, User - ' + model.id);
+            return model.save();
+        }
+    };
+
+    if (isArray(models)) {
+        models.forEach(function(model) {
+            update(model);
+        });
+    } else {
+        update(models);
+    }
+};
+
+// Export
 module.exports = mongoose.model('User', UserSchema);

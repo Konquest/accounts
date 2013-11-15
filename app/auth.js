@@ -23,7 +23,7 @@ module.exports.setup = function(app) {
                     if (err) return done(err);
                     if (!isMatch) return done(null, false);
                     
-                    return done(null, user.normalize());
+                    return done(null, user);
                 });
             });
         }

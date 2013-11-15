@@ -3,4 +3,7 @@ extends ../application.jade
 block content
     each user in users
         div.user
-            h2= user.username
+            h2
+                = user.username
+                each role in user.roles
+                    span.small= role

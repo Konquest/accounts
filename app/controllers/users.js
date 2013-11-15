@@ -2,18 +2,21 @@ var db = require('../../db'),
     __ = require('underscore');
 
 module.exports.search = function(req, res, next) {
-    db.User.find().lean().exec(function(err, users) {
+    db.User.find().exec(function(err, users) {
         if (err) return next(err);
-        users = __.map(users, function(value) { return __.pick(value, 'id', 'username'); });
+        
+        db.User.migrate(users);
         
         res.format({
             html: function() {
                 res.render('users/index', {users: users});
             },
             json: function() {
-                res.json(users);
+                var userList = __.map(users, function(user) { return user.normalize(); });
+                res.json(userList);
             }
         });
+
     });
 };
 
@@ -57,7 +60,4 @@ module.exports.show = function(req, res, next) {
             }
         });
     });
-};
-
-module.exports.wip = function(req, res, next) {
 };

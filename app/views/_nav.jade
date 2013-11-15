@@ -1,0 +1,12 @@
+header
+    ul
+        li
+            a(href="/") Home
+        if currentUser
+            li
+                a(href="/users/" + currentUser.username) My Profile
+            li
+                a(href="/session/logout") Sign Out
+        else
+            li
+                a(href="/session") Login
