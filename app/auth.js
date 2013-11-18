@@ -15,7 +15,7 @@ module.exports.setup = function(app) {
     // Password strategy
     passport.use(new LocalStrategy(
         function (username, password, done) {
-            db.User.findOne({username: username}, function (err, user) {
+            db.User.findOne({active: true, username: username}, function (err, user) {
                 if (err) return done(err);
                 if (!user) return done(null, false);
                 

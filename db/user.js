@@ -9,12 +9,23 @@ var __ = require('underscore'),
     SALT_WORK_FACTOR = 10;
 
 // Definition
+var ContactSchema = new Schema({
+    active: {type: Boolean, default: true},
+    channel: {type: String, required: true, enum: ['email']},
+    uri: {type: String, required: true, index: {unique: true}},
+    verificationCode: {type: String},
+    created: {type: Date, default: Date.now},
+    modified: {type: Date, default: Date.now}
+});
+
 var UserSchema = new Schema({
     _id: {type: String, default: uuid.v1},
-    username: {type: String, required: true, index: {unique: true}},
-    password: {type: String, required: true},
-    name: {type: String, required: true},
-    email: {type: String, required: true, index: {unique: true}},
+    active: {type: Boolean, default: true},
+    username: {type: String, required: true, default: '', index: {unique: true}},
+    password: {type: String, required: true, default: ''},
+    name: {type: String, required: true, default: ''},
+    email: {type: String, required: true, default: '', index: {unique: true}},            // Primary email
+    contacts: {type: [ContactSchema], default: []},
     roles: {type: [String], default: ['user']}, 
     applications: {type: [String], ref: 'Application', default: []},
     created: {type: Date, default: Date.now},
@@ -38,23 +49,38 @@ UserSchema.path('password').validate(function (password) {
 }, 'must be 4 characters or more');
 
 UserSchema.path('roles').validate(function(roles) { 
+    return roles.length > 0;
+}, 'must have at least one role');
+
+UserSchema.path('roles').validate(function(roles) { 
     var possibleRoles = UserSchema.roles,
         valid = true; 
     
     roles.forEach(function(role) {
         if (possibleRoles.indexOf(role) === -1) {
             valid = false;
-            return;
         }
     });
     
-    return roles.length > 0 && valid;
-}, 'roles not valid'); 
+    return valid;
+}, 'must be valid roles - ' + UserSchema.roles);
 
-// Operations
+// Operational
+UserSchema.pre('validate', function(next) {
+    if (this.isModified('email')) {
+        var contact = {
+            channel: 'email',
+            uri: this.email
+        };
+        this.contacts.push(contact);
+    }
+
+    next();
+});
+
 UserSchema.pre('save', function(next) {
     var user = this;
-    
+        
     if (!user.isModified('password')) return next(); // only hash the password if it has been modified (or is new)
 
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
@@ -84,6 +110,7 @@ UserSchema.methods.isA = function(role) {
     return ~UserSchema.roles.indexOf(role);
 };
 
+// TODO: Refracter out to a separate library - https://trello.com/c/YBKLuFBU/8-extract-user-table-migration-to-an-external-library
 UserSchema.statics.migrate = function(models) {
     var update = function(model) {
         var changed = false;
