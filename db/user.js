@@ -21,9 +21,9 @@ var ContactSchema = new Schema({
 var UserSchema = new Schema({
     _id: {type: String, default: uuid.v1},
     active: {type: Boolean, default: true},
-    username: {type: String, required: true, default: '', index: {unique: true}},
-    password: {type: String, required: true, default: ''},
-    name: {type: String, required: true, default: ''},
+    username: {type: String, required: true, index: {unique: true}},
+    password: {type: String, required: true},
+    name: {type: String, required: true},
     email: {type: String, required: true, default: '', index: {unique: true}},            // Primary email
     contacts: {type: [ContactSchema], default: []},
     roles: {type: [String], default: ['user']}, 
@@ -41,11 +41,11 @@ UserSchema.path('email').validate(function (email) {
 }, 'must be an email address');
 
 UserSchema.path('username').validate(function (username) {
-    return username.length >= 3;
+    return (username || '').length >= 3;
 }, 'must be 3 characters or more');
 
 UserSchema.path('password').validate(function (password) {
-    return password.length >= 4;
+    return (password || '').length >= 4;
 }, 'must be 4 characters or more');
 
 UserSchema.path('roles').validate(function(roles) { 
