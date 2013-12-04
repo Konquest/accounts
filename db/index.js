@@ -8,5 +8,5 @@ module.exports.AccessToken = require('./accessToken');
 module.exports.RefreshToken = require('./refreshToken');
 
 module.exports.init = function() {
-    mongoose.connect(config.db);
+    mongoose.connect(config.db, {auto_reconnect: true});
 };

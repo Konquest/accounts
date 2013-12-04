@@ -24,7 +24,8 @@ module.exports.init = function() {
             key: config.session.key,
             secret: config.session.secret,
             store: new MongoStore({
-                url: config.db
+                url: config.db,
+                auto_reconnect: true
             }),
             maxAge: config.session.age
         }));
