@@ -5,8 +5,9 @@ var express = require('express'),
     auth = require('./auth'),
     routes = require('./routes');
 
-var SessionStore = express.session.MemoryStore;
+//var SessionStore = express.session.MemoryStore;
 var app = module.exports.server = express();
+var MongoStore = require('connect-mongo')(express);
 
 module.exports.init = function() {
     app.configure(function() {
@@ -22,7 +23,9 @@ module.exports.init = function() {
         app.use(express.session({
             key: config.session.key,
             secret: config.session.secret,
-            store: new SessionStore(),
+            store: new MongoStore({
+                url: config.db
+            }),
             maxAge: config.session.age
         }));
         app.use(flash());
@@ -31,11 +34,11 @@ module.exports.init = function() {
         app.use(function(req, res, next) {
             res.locals.flash = req.flash();
             if (req.user) res.locals.currentUser = req.user;
-            
+
             req.flashNow = function(type, msg) {
                 res.locals.flash[type] = msg;
             };
-            
+
             return next();
         });
         app.use(app.router);

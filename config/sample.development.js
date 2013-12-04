@@ -1,15 +1,15 @@
 module.exports = {
-    port: 8080,
-    logger: 'default',
-    db: 'mongodb://localhost/accounts',
+    port: process.env.PORT || 8080,
+    logger: process.env.LOGGER || 'default',
+    db: process.env.MONGO_URL || 'mongodb://localhost/accounts',
     session: {
-        age: 7200000,
-        key: 'SID',
-        secret: '2613' // chosen by four fair dice rolls; guarenteed to be random
+        age: process.env.SESSION_AGE || 7200000,
+        key: process.env.SESSION_KEY || 'SID',
+        secret: process.env.SESSION_SECRET || '2613' // chosen by four fair dice rolls; guarenteed to be random
     },
     oauth2: {
         features: {
-            client: false,
+            client: true,
             code: true,
             implicit: true,
             password: true
