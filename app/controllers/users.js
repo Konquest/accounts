@@ -2,11 +2,12 @@ var db = require('../../db'),
     __ = require('underscore');
 
 module.exports.search = function(req, res, next) {
+    // TODO process query
     db.User.find().exec(function(err, users) {
         if (err) return next(err);
-        
+
         db.User.migrate(users);
-        
+
         res.format({
             html: function() {
                 res.render('users/index', {users: users});
@@ -26,12 +27,12 @@ module.exports.form = function(req, res, next) {
 
 module.exports.create = function(req, res, next) {
     var user = __.pick(req.body, 'name', 'email', 'username', 'password');
-    
+
     db.User.create(user, function(err, user) {
         if (err) return next(err);
         user = __.pick(user.toJSON({getters: true}), 'id', 'name', 'username', 'created');
         req.flash('success', 'Successfully created user, ' + user.username);
-        
+
         res.format({
             html: function() {
                 res.redirect('/session');
@@ -46,10 +47,10 @@ module.exports.create = function(req, res, next) {
 
 module.exports.show = function(req, res, next) {
     var username = req.params.username || req.user.username;
-    
+
     db.User.findOne({username: username}).exec(function(err, user) {
         if (err) return next(err);
-        
+
         user = __.pick(user.toJSON({getters: true}), 'id', 'name', 'created');
         res.format({
             html: function() {

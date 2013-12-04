@@ -49,11 +49,7 @@ module.exports.init = function() {
         app.use(express.errorHandler({ dumpExceptions: true, showMessage: true, showStack: true }));
     });
 
-    app.configure('staging', function() {
-        app.use(express.errorHandler({ dumpExceptions: true }));
-    });
-
-    app.configure('production', function() {
+    app.configure(['staging', 'production'], function() {
         app.use(express.errorHandler({ dumpExceptions: true }));
     });
 
