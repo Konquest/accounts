@@ -1,7 +1,7 @@
 extends ../application.jade
 
 block content
-    div.logo(style="font-family: 'Bigelow Rules', cursive; font-size: 72px;") Konquest
+    div.logo(style="font-family: 'Bigelow Rules', cursive; font-size: 72px;")= site.name
     p Login Form
     form(method="post")
         div.username
@@ -11,6 +11,5 @@ block content
             span Password
             input(name="password", type="password")
         input(name="submit", type="submit")
-        
+
     a(href="/users/new") New User?
-    

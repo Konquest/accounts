@@ -33,9 +33,10 @@ module.exports.init = function() {
         app.use(passport.initialize());
         app.use(passport.session());
         app.use(function(req, res, next) {
-            res.locals.flash = req.flash();
             if (req.user) res.locals.currentUser = req.user;
+            res.locals.site = config.site;
 
+            res.locals.flash = req.flash();
             req.flashNow = function(type, msg) {
                 res.locals.flash[type] = msg;
             };

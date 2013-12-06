@@ -17,5 +17,8 @@ module.exports = {
         authorizationCode: { expires: 600 },    // 10 minutes
         accessToken: { length: 256, expires: 3600 },     // 1 hour
         refreshToken: { length: 256, expires: 86400 * 365 }    // 1 year = 1 day * 365
+    },
+    site: {
+        name: process.env.SITE_NAME || 'Konquest'
     }
 };
