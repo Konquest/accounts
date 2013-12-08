@@ -1,6 +1,7 @@
 module.exports = {
     port: 8080,
     db: 'mongodb://test:test@ds035348.mongolab.com:35348/unit-test',
+    //logger: process.env.LOGGER || 'default',
     logger: false,
     session: {
         age: 7200000,
@@ -17,5 +18,8 @@ module.exports = {
         authorizationCode: { expires: 600 },    // 10 minutes
         accessToken: { length: 256, expires: 3600 },     // 1 hour
         refreshToken: { length: 256, expires: 86400 * 365 }    // 1 year = 1 day * 365
+    },
+    site: {
+        name: process.env.SITE_NAME || 'Konquest'
     }
 };

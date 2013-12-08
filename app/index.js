@@ -3,13 +3,14 @@ var express = require('express'),
     flash = require('connect-flash'),
     config = require('../config'),
     auth = require('./auth'),
-    routes = require('./routes');
+    routes = require('./routes'),
+    app = express(),
+    server;
 
 //var SessionStore = express.session.MemoryStore;
-var app = module.exports.server = express();
 var MongoStore = require('connect-mongo')(express);
 
-module.exports.init = function() {
+module.exports.init = function(callback) {
     app.configure(function() {
         app.set('port', process.env.PORT || config.port);
         app.set('views', __dirname + '/views');
@@ -57,8 +58,12 @@ module.exports.init = function() {
     auth.setup(app);
     routes.setup(app);
 
-    app.listen(app.get('port'), function() {
+    server = app.listen(app.get('port'), function() {
         console.log('Application listening on port %d in %s mode', app.get('port'), app.settings.env);
+        if (callback) callback.call(this);
     });
 };
 
+module.exports.close = function(callback) {
+    server.close(callback);
+};

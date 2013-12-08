@@ -7,6 +7,11 @@ module.exports.applications = require('./applications');
 
 module.exports.index = [
     function(req, res, next) {
-        res.render('index');
+
+        if (req.user) {
+            res.render('index');
+        } else {
+            res.redirect('/session');
+        }
     }
 ];

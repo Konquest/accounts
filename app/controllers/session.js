@@ -1,7 +1,8 @@
 var passport = require('passport');
 
 module.exports.index = function(req, res, next) {
-    res.render('session/index', {user: {}, redirectUri: req.session.returnTo});
+    req.session.redirect = req.query.redirect;
+    res.render('session/index', {user: {}, redirectUri: req.session.redirect});
 };
 
 module.exports.login = function(req, res, next) {
@@ -14,14 +15,14 @@ module.exports.login = function(req, res, next) {
         req.login(user, function(err) {
             if (err) return next(err);
 
-            var redirect = req.query.redirect || req.body.redirect || '/users/' + user.username;
+            var redirect = req.session.redirect || '/users/' + user.username;
             return res.redirect(redirect);
         });
     })(req, res, next);
 };
 
 module.exports.logout = function (req, res) {
-    req.logout();
     req.flash('error', 'Successfully logged out');
+    req.logout();
     res.redirect('/');
 };
