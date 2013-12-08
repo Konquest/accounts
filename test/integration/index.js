@@ -1,7 +1,11 @@
-var app = require('../../index');
+var app = require('../../');
 
 describe('Integration Test:', function() {
     before(function(done) {
+        this.timeout(5000);
+        console.log('\nIntegration testing');
+
+        //TODO delete all data
         app.start(done);
     });
 
@@ -10,5 +14,5 @@ describe('Integration Test:', function() {
     });
 
     require('./session.js');
-    //require('./user.js');
+    require('./user.js');
 });

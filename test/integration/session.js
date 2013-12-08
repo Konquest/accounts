@@ -1,23 +1,22 @@
-var //request = require('request'),
-    request = require('supertest'),
+var request = require('supertest'),
     assert = require('assert'),
     async = require('async'),
     config = require('../../config'),
     common = require('../common'),
-    app = require('../../index'),
+    app = require('../../'),
     db = require('../../db'),
     __ = require('underscore');
 
 
-var //request = request.defaults({jar: true}),
-    fakeUser = common.fixtures.newUser,
+var fakeUser = common.fixtures.newUser,
     host = 'http://localhost:' + config.port,
-    urls = common.urls;
+    urls = common.urls,
+    sessionRequest = request.agent(host);
 
 describe('Session Management', function() {
     it('should remove all users', function(done) {
         db.User.remove().exec(function(err) {
-            assert.ok(!err);
+            assert.ifError(err);
             done();
         });
     });
@@ -52,7 +51,7 @@ describe('Session Management', function() {
     it('should redirect to user profile when logging in', function(done) {
         var credentials = __.pick(fakeUser, 'username', 'password');
 
-        request(host)
+        sessionRequest
             .post(urls.session)
             .send(credentials)
             .expect('Location', urls.profile)
@@ -60,31 +59,17 @@ describe('Session Management', function() {
     });
 
 
-/*
     it('should not redirect when accessing protected page while logged in', function(done) {
-        request(host)
+        sessionRequest
             .get(urls.users)
             .expect(200, done);
     });
-*/
-
-/*
-
-    it('should not redirect when accessing protected page while logged in', function(done) {
-        request.get(host + urls.users, function(err, res, body) {
-            assert.ifError(err);
-            assert.equal(res.req.path, urls.users);
-            done();
-        });
-    });
 
     it('should redirect to home when logging out', function(done) {
-        request.get(host + urls.logout, function(err, res, body) {
-            assert.ifError(err);
-            assert.equal(res.req.path, urls.home);
-            done();
-        });
+        sessionRequest
+            .get(urls.logout)
+            .expect('Location', urls.home)
+            .expect(302, done);
     });
 
-*/
 });
