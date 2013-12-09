@@ -9,6 +9,7 @@ var express = require('express'),
 
 //var SessionStore = express.session.MemoryStore;
 var MongoStore = require('connect-mongo')(express);
+//var MongoStore = require('connect-mongostore')(express);
 
 module.exports.init = function(callback) {
     app.configure(function() {

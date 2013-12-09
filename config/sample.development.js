@@ -19,6 +19,6 @@ module.exports = {
         refreshToken: { length: 256, expires: 86400 * 365 }    // 1 year = 1 day * 365
     },
     site: {
-        name: process.env.SITE_NAME || 'Konquest'
+        name: process.env.SITE_NAME || 'User Valet'
     }
 };
