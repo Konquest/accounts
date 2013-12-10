@@ -5,30 +5,30 @@ var passport = require('passport'),
     ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy,
     BearerStrategy = require('passport-http-bearer').Strategy,
     config = require('../config'),
-    db = require('../db');
+    db = require('./db');
 
 
 module.exports.setup = function(app) {
     // Anonymous
     passport.use(new AnonymousStrategy());
-    
+
     // Password strategy
     passport.use(new LocalStrategy(
         function (username, password, done) {
             db.User.findOne({active: true, username: username}, function (err, user) {
                 if (err) return done(err);
                 if (!user) return done(null, false);
-                
+
                 user.comparePassword(password, function(err, isMatch) {
                     if (err) return done(err);
                     if (!isMatch) return done(null, false);
-                    
+
                     return done(null, user);
                 });
             });
         }
     ));
-    
+
     // Client Credentials
     passport.use(new BasicStrategy(
         function (username, password, done) {
@@ -36,12 +36,12 @@ module.exports.setup = function(app) {
                 if (err) return done(err);
                 if (!application) return done(null, false);
                 if (application.secret !== password) return done(null, false);
-                
+
                 return done(null, application);
             });
         }
     ));
-    
+
     // Client Credentials
     passport.use(new ClientPasswordStrategy(
         function (clientId, clientSecret, done) {
@@ -49,7 +49,7 @@ module.exports.setup = function(app) {
                 if (err) return done(err);
                 if (!application) return done(null, false);
                 if (application.secret !== clientSecret) return done(null, false);
-                
+
                 return done(null, application);
             });
         }
@@ -61,7 +61,7 @@ module.exports.setup = function(app) {
             db.AccessToken.findOne({token: accessToken}, function (err, accessToken) {
                 if (err) return done(err);
                 if (!accessToken) return done(null, false);
-                
+
                 if (accessToken.user) {
                     db.User.findById(accessToken.user, function (err, user) {
                         if (err) return done(err);
@@ -82,11 +82,11 @@ module.exports.setup = function(app) {
             });
         }
     ));
-    
+
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
-    
+
     passport.deserializeUser(function (id, done) {
         db.User.findById(id, function (err, user) {
             done(err, user);

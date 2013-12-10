@@ -1,4 +1,4 @@
-var config = require('../config'),
+var config = require('../../config'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId,

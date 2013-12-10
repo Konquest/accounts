@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    db = require('../../db');
+    db = require('../../app/db');
 
 describe('User Schema', function() {
     it('should fail when validating an invalid user', function(done) {

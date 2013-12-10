@@ -1,9 +1,9 @@
 var request = require('supertest'),
     assert = require('assert'),
-    config = require('../../config'),
-    common = require('../common'),
     app = require('../../index'),
-    db = require('../../db'),
+    config = app.config,
+    db = app.db,
+    common = require('../common'),
     __ = require('underscore');
 
 var fakeUser = common.fixtures.newUser,

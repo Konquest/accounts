@@ -1,10 +1,10 @@
 var request = require('supertest'),
     assert = require('assert'),
     async = require('async'),
-    config = require('../../config'),
-    common = require('../common'),
     app = require('../../'),
-    db = require('../../db'),
+    config = app.config,
+    db = app.db,
+    common = require('../common'),
     __ = require('underscore');
 
 

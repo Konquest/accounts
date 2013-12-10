@@ -1,6 +1,6 @@
 var async = require('async'),
-    app = require('../../index'),
-    db = require('../../db');
+    app = require('../../'),
+    db = app.db;
 
 describe('Integration Test:', function() {
     before(function(done) {

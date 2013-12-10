@@ -8,9 +8,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "pretest": "jshint config db index.js app test",
+    "pretest": "jshint config index.js app test",
     "test": "NODE_ENV=testing mocha",
-    "prestart": "jshint config db index.js app",
+    "prestart": "jshint config index.js app",
     "start": "node index.js"
   },
   "repository": {

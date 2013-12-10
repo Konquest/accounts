@@ -1,7 +1,7 @@
 var oauth2orize = require('oauth2orize'),
     passport = require('passport'),
     config = require('../config'),
-    db = require('../db');
+    db = require('./db');
 
 var server = module.exports = oauth2orize.createServer();
 
@@ -13,7 +13,7 @@ var server = module.exports = oauth2orize.createServer();
 if (config.oauth2.features.code) {
     server.grant(oauth2orize.grant.code(function (application, redirectURI, user, ares, done) {
         console.log(arguments);
-        
+
         db.AuthorizationCode.create({
             user: user.id,
             application: application.id,
@@ -23,20 +23,20 @@ if (config.oauth2.features.code) {
             expires: Date.now() + config.oauth2.authorizationCode.expires
         }, function(err) {
             if (err) return done(err);
-            
+
             return done(null, code);
         });
     }));
-    
+
     server.exchange(oauth2orize.exchange.code(function (application, code, redirectURI, done) {
         db.AuthorizationCode.findOne({code: code}).exec(function (err, authCode) {
             if (err) return done(err);
             if (!authCode) return done(null, false);
             if (application.id !== authCode.application) return done(null, false);
             if (redirectURI !== authCode.redirectUri) return done(null, false);
-            
+
             authCode.remove();
-            
+
             db.AccessToken.create({
                 user: authCode.user,
                 application: authCode.application,
@@ -44,7 +44,7 @@ if (config.oauth2.features.code) {
                 expires: Date.now() + config.oauth2.accessToken.expires
             }, function(err, accessToken) {
                 if (err) return done(err);
-                
+
                 if (authCode.scope && authCode.scope.indexOf("offline_access") === 0) {
                     db.RefreshToken.create({
                         user: authCode.user,
@@ -76,7 +76,7 @@ if (config.oauth2.features.implicit) {
             expires: Date.now() + config.oauth2.accessToken.expires
         }, function(err, accessToken) {
             if (err) return done(err);
-            
+
             return done(null, accessToken.token, {expires_in: config.oauth2.accessToken.expires});
         });
     }));
@@ -92,7 +92,7 @@ if (config.oauth2.features.password) {
             if (err) return done(err);
             if (!user) return done(null, false);
             if (!user.comparePassword(password)) return done(null, false);
-            
+
             db.AccessToken.create({
                 user: user.id,
                 application: application.id,
@@ -100,7 +100,7 @@ if (config.oauth2.features.password) {
                 expires: Date.now() + config.oauth2.accessToken.expires
             }, function(err, accessToken) {
                 if (err) return done(err);
-                
+
                 if (scope && scope.indexOf("offline_access") === 0) {
                     db.RefreshToken.create({
                         user: user.id,
@@ -109,7 +109,7 @@ if (config.oauth2.features.password) {
                         expires: Date.now() + config.oauth2.refreshToken.expires
                     }, function(err, refreshToken) {
                         if (err) return done(err);
-                        
+
                         return done(null, accessToken.token, refreshToken.token, {expires_in: config.oauth2.accessToken.expires});
                     });
                 } else {
@@ -132,12 +132,12 @@ if (config.oauth2.features.client) {
             expires: Date.now() + config.oauth2.accessToken.expires
         }, function(err, accessToken) {
             if (err) return done(err);
-            
+
             return done(null, accessToken.token, null, {expires_in: config.oauth2.accessToken.expires});
         });
     }));
 }
-    
+
 
 server.exchange(oauth2orize.exchange.refreshToken(function(application, refreshToken, scope, done) {
     db.RefreshToken.findOne({token: refreshToken}).exec(function (err, refreshToken) {
@@ -152,7 +152,7 @@ server.exchange(oauth2orize.exchange.refreshToken(function(application, refreshT
             expires: Date.now() + config.oauth2.accessToken.expires
         }, function(err, accessToken) {
             if (err) return done(err);
-            
+
             return done(null, accessToken.token, null, {expires_in: config.oauth2.accessToken.expires});
         });
     });

@@ -1,4 +1,4 @@
-var db = require('../../db'),
+var db = require('../db'),
     __ = require('underscore');
 
 module.exports.search = function(req, res, next) {

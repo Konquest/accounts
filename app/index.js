@@ -1,17 +1,21 @@
 var express = require('express'),
     passport = require('passport'),
     flash = require('connect-flash'),
+    async = require('async'),
+    db = require('./db'),
     config = require('../config'),
     auth = require('./auth'),
     routes = require('./routes'),
     app = express(),
-    server;
+    server,
+    init,
+    close;
 
 //var SessionStore = express.session.MemoryStore;
 var MongoStore = require('connect-mongo')(express);
 //var MongoStore = require('connect-mongostore')(express);
 
-module.exports.init = function(callback) {
+module.exports.init = init = function(callback) {
     app.configure(function() {
         app.set('port', process.env.PORT || config.port);
         app.set('views', __dirname + '/views');
@@ -60,11 +64,31 @@ module.exports.init = function(callback) {
     routes.setup(app);
 
     server = app.listen(app.get('port'), function() {
-        console.log('Application listening on port %d in %s mode', app.get('port'), app.settings.env);
+        console.warn('Application listening on port %d in %s mode', app.get('port'), app.settings.env);
         if (callback) callback.call(this);
     });
 };
 
-module.exports.close = function(callback) {
+module.exports.close = close = function(callback) {
     server.close(callback);
 };
+
+module.exports.start = start = function(callback) {
+    async.parallel([db.init, init], function(err) {
+        if (err) {
+            return console.warn('Failed to start server');
+        }
+        console.warn('\nServer ready to go');
+        if (callback) callback.call(app);
+    });
+};
+
+module.exports.stop = function(callback) {
+    async.parallel([close, db.close], function(err) {
+        console.warn('\nServer shut down');
+        if (callback) callback.call(app);
+    });
+};
+
+module.exports.db = db;
+module.exports.config = config;
