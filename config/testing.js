@@ -2,7 +2,7 @@ module.exports = {
     port: 8080,
     db: 'mongodb://test:test@ds035348.mongolab.com:35348/unit-test',
     //logger: process.env.LOGGER || 'default',
-    logger: false,
+    logger: process.env.LOGGER || ('default' && process.env.NODE_ENV !== 'testing'),
     session: {
         age: 7200000,
         key: 'SID',

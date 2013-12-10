@@ -8,9 +8,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "pretest": "jshint config index.js app test",
-    "test": "NODE_ENV=testing mocha",
-    "prestart": "jshint config index.js app",
+    "pretest": "./node_modules/jshint/bin/jshint config index.js app test",
+    "test": "NODE_ENV=testing ./node_modules/cover/bin/cover run ./node_modules/mocha/bin/_mocha && ./node_modules/cover/bin/cover report html",
+    "prestart": "./node_modules/jshint/bin/jshint config index.js app",
     "start": "node index.js"
   },
   "repository": {
@@ -31,7 +31,8 @@
     "request": "~2.27.0",
     "Faker": "~0.5.11",
     "should": "~2.1.0",
-    "supertest": "~0.8.2"
+    "supertest": "~0.8.2",
+    "cover": "~0.2.9"
   },
   "dependencies": {
     "express": "~3.4.3",
