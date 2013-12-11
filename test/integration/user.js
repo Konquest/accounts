@@ -7,6 +7,7 @@ var request = require('supertest'),
     __ = require('underscore');
 
 var createUser = common.fixtures.createUser,
+    createJsonUser = common.fixtures.createUser,
     host = 'http://localhost:' + config.port,
     urls = common.urls,
     sessionRequest = request.agent(host);
@@ -20,12 +21,27 @@ describe('User Management', function() {
             .expect(302, done);
     });
 
+    it('should show registration form', function(done) {
+        request(host)
+            .get(urls.userForm)
+            .expect(200, done);
+    });
+
     it('should create a new user and redirect to login', function(done) {
         request(host)
             .post(urls.users)
             .send(createUser)
             .expect('Location', urls.session)
             .expect(302, done);
+    });
+
+    it.skip('should create a new user in JSON', function(done) {
+        request(host)
+            .post(urls.users)
+            .set('Accept', 'application/json')
+            .send(createJsonUser)
+            .expect('Content-Type', /json/)
+            .expect(201, done);
     });
 
     it('should log in', function(done) {
