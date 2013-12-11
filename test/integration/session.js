@@ -14,28 +14,11 @@ var fakeUser = common.fixtures.newUser,
     sessionRequest = request.agent(host);
 
 describe('Session Management', function() {
-    it('should remove all users', function(done) {
-        db.User.remove().exec(function(err) {
-            assert.ifError(err);
-            done();
-        });
-    });
 
-    it('should create new user', function(done) {
-        db.User.create(fakeUser, function(err, user) {
-            assert.ifError(err);
-            assert.equal(user.name, fakeUser.name);
-            assert.equal(user.username, fakeUser.username);
-            assert.equal(user.email, fakeUser.email);
-            done();
-        });
-    });
-
-    it('should redirect to login when accessing protected page while logged out', function(done) {
+    it('should show login page', function(done) {
         request(host)
-            .get(urls.users)
-            .expect('Location', urls.session)
-            .expect(302, done);
+            .get(urls.session)
+            .expect(200, done);
     });
 
     it('should show login with error when failing to login', function(done) {
@@ -54,21 +37,36 @@ describe('Session Management', function() {
         sessionRequest
             .post(urls.session)
             .send(credentials)
-            .expect('Location', urls.profile)
+            .expect('Location', urls.profile(fakeUser.username))
             .expect(302, done);
     });
 
 
     it('should not redirect when accessing protected page while logged in', function(done) {
+        this.timeout(4000);
         sessionRequest
             .get(urls.users)
             .expect(200, done);
+    });
+
+    it('should redirect to user profile when already logged in', function(done) {
+        sessionRequest
+            .get(urls.session)
+            .expect('Location', urls.profile(fakeUser.username))
+            .expect(302, done);
     });
 
     it('should redirect to home when logging out', function(done) {
         sessionRequest
             .get(urls.logout)
             .expect('Location', urls.home)
+            .expect(302, done);
+    });
+
+    it('should redirect to session when logging out', function(done) {
+        sessionRequest
+            .get(urls.home)
+            .expect('Location', urls.session)
             .expect(302, done);
     });
 

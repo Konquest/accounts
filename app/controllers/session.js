@@ -1,8 +1,12 @@
 var passport = require('passport');
 
 module.exports.index = function(req, res, next) {
-    req.session.redirect = req.query.redirect;
-    res.render('session/index', {user: {}, redirectUri: req.session.redirect});
+    if (req.user) {
+        res.redirect('/users/' + req.user.username);
+    } else {
+        req.session.redirect = req.query.redirect;
+        res.render('session/index', {user: {}, redirectUri: req.session.redirect});
+    }
 };
 
 module.exports.login = function(req, res, next) {

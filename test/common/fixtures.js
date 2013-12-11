@@ -6,5 +6,11 @@ module.exports = {
         password: 'password',
         name: faker.Name.findName(),
         email: faker.Internet.email()
+    },
+    createUser: {
+        username: faker.Internet.userName(),
+        password: 'password',
+        name: faker.Name.findName(),
+        email: faker.Internet.email()
     }
 };

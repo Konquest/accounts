@@ -4,6 +4,8 @@ module.exports = {
     logout: '/session/logout',
     home: '/',
     users: '/users',
-    profile: '/users/' + fakeUser.username,
+    profile: function(username) {
+        return '/users/' + username;
+    },
     session: '/session'
 };

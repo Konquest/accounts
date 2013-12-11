@@ -1,4 +1,6 @@
 var async = require('async'),
+    assert = require('assert'),
+    common = require('../common'),
     app = require('../../'),
     db = app.db;
 
@@ -22,6 +24,18 @@ describe('Integration Test:', function() {
         app.stop(done);
     });
 
+    var newUser = common.fixtures.newUser;
+    it('should create new user', function(done) {
+        db.User.create(newUser, function(err, user) {
+            assert.ifError(err);
+            assert.equal(user.name, newUser.name);
+            assert.equal(user.username, newUser.username);
+            assert.equal(user.email, newUser.email);
+            done();
+        });
+    });
+
+    require('./home.js');
     require('./session.js');
     require('./user.js');
 });
