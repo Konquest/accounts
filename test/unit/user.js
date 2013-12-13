@@ -1,8 +1,8 @@
 var assert = require('assert'),
     db = require('../../app/db');
 
-describe('User Schema', function() {
-    it('should fail when validating an invalid user', function(done) {
+describe('User Model', function() {
+    it('should fail when validating an blank user', function(done) {
         var expectedErrors = {
             name: 'required',
             roles: 'must have at least one role',
@@ -25,4 +25,50 @@ describe('User Schema', function() {
             done();
         });
     });
+
+
+    it('should fail when validating an invalid user', function(done) {
+        var expectedErrors = {
+            roles: 'must be valid roles - user, admin'
+        };
+
+        var user = new db.User({
+            username: 'username',
+            password: 'password',
+            name: 'some name',
+            email: 'valid@test.test',
+            roles: ['non existant']
+        });
+        user.validate(function(err) {
+            assert.ok(err);    // Should be an error
+            Object.keys(err.errors).forEach(function(fieldName) {
+                assert.equal(err.errors[fieldName].type, expectedErrors[fieldName], fieldName + ' must have correct error message');
+            });
+            done();
+        });
+    });
+
+    it('should create a new user', function(done) {
+        var fakeUser = require('../common').dummies.newUser;
+
+        var user = new db.User(fakeUser);
+
+        db.User.remove().exec(function() {
+            db.User.find().exec(function(err, users) {
+                console.log(users);
+            });
+
+            user.save(function(err) {
+                assert.ifError(err);
+                assert.equal(user.username, fakeUser.username);
+                assert.equal(user.name, fakeUser.name);
+                assert.notEqual(user.password, fakeUser.password, 'actual password should be encrypted');
+                assert.equal(user.email, fakeUser.email);
+
+                done();
+            });
+        });
+
+    });
+
 });

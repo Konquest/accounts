@@ -1,4 +1,4 @@
-var fakeUser = require('./fixtures').newUser;
+var fakeUser = require('./dummies').newUser;
 
 module.exports = {
     logout: '/session/logout',

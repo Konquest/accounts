@@ -8,7 +8,7 @@ var request = require('supertest'),
     __ = require('underscore');
 
 
-var fakeUser = common.fixtures.newUser,
+var fakeUser = common.dummies.newUser,
     host = 'http://localhost:' + config.port,
     urls = common.urls,
     sessionRequest = request.agent(host);

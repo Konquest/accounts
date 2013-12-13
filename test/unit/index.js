@@ -1,8 +1,10 @@
+var common = require('../common');
 
 describe('Unit:', function() {
     before(function(done) {
         console.log('\nUnit testing');
-        done();
+
+        common.clearData(done);
     });
 
     require('./user');
