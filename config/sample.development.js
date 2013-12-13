@@ -1,6 +1,6 @@
 module.exports = {
     port: process.env.PORT || 8080,
-    logger: process.env.LOGGER || ('default' && process.env.NODE_ENV !== 'testing'),
+    logger: process.env.NODE_ENV === 'testing' ? false : process.env.LOGGER || 'default',
     db: process.env.MONGO_URL || 'mongodb://localhost/accounts',
     session: {
         age: process.env.SESSION_AGE || 7200000,
