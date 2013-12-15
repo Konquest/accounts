@@ -4,19 +4,18 @@ var assert = require('assert'),
 describe('User Model', function() {
     it('should fail when validating an blank user', function(done) {
         var expectedErrors = {
-            name: 'required',
-            roles: 'must have at least one role',
-            email: 'must be an email address',
-            password: 'must be 4 characters or more',
-            username: 'must be 3 characters or more'
-        };
-
-        var user = new db.User({
-            username: 'u', // short
-            password: 'p', // short
-            email: 'not email', // invalid email
-            roles: [] // blank roles
-        });
+                name: 'required',
+                roles: 'must have at least one role',
+                email: 'must be an email address',
+                password: 'must be 4 characters or more',
+                username: 'must be 3 characters or more'
+            },
+            user = new db.User({
+                username: 'u', // short
+                password: 'p', // short
+                email: 'not email', // invalid email
+                roles: [] // blank roles
+            });
         user.validate(function(err) {
             assert.ok(err);    // Should be an error
             Object.keys(err.errors).forEach(function(fieldName) {
@@ -29,16 +28,15 @@ describe('User Model', function() {
 
     it('should fail when validating an invalid user', function(done) {
         var expectedErrors = {
-            roles: 'must be valid roles - user, admin'
-        };
-
-        var user = new db.User({
-            username: 'username',
-            password: 'password',
-            name: 'some name',
-            email: 'valid@test.test',
-            roles: ['non existant']
-        });
+                roles: 'must be valid roles - user, admin'
+            },
+            user = new db.User({
+                username: 'username',
+                password: 'password',
+                name: 'some name',
+                email: 'valid@test.test',
+                roles: ['non existant']
+            });
         user.validate(function(err) {
             assert.ok(err);    // Should be an error
             Object.keys(err.errors).forEach(function(fieldName) {
@@ -49,24 +47,17 @@ describe('User Model', function() {
     });
 
     it('should create a new user', function(done) {
-        var fakeUser = require('../common').dummies.newUser;
+        var fakeUser = require('../common').dummies.newUser,
+            user = new db.User(fakeUser);
 
-        var user = new db.User(fakeUser);
+        user.save(function(err) {
+            assert.ifError(err);
+            assert.equal(user.username, fakeUser.username);
+            assert.equal(user.name, fakeUser.name);
+            assert.notEqual(user.password, fakeUser.password, 'actual password should be encrypted');
+            assert.equal(user.email, fakeUser.email);
 
-        db.User.remove().exec(function() {
-            db.User.find().exec(function(err, users) {
-                console.log(users);
-            });
-
-            user.save(function(err) {
-                assert.ifError(err);
-                assert.equal(user.username, fakeUser.username);
-                assert.equal(user.name, fakeUser.name);
-                assert.notEqual(user.password, fakeUser.password, 'actual password should be encrypted');
-                assert.equal(user.email, fakeUser.email);
-
-                done();
-            });
+            done();
         });
 
     });

@@ -7,7 +7,7 @@ var async = require('async'),
 describe('Integration Test:', function() {
     before(function(done) {
         this.timeout(5000);
-        console.log('\nIntegration testing');
+        console.log('\nIntegration testing'.underline);
 
         app.start(function() {
             common.clearData(done);
