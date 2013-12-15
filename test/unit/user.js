@@ -1,6 +1,8 @@
 var assert = require('assert'),
     db = require('../../app/db');
 
+var fakeUser = require('../common').dummies.newUser;
+
 describe('User Model', function() {
     it('should fail when validating an blank user', function(done) {
         var expectedErrors = {
@@ -47,8 +49,7 @@ describe('User Model', function() {
     });
 
     it('should create a new user', function(done) {
-        var fakeUser = require('../common').dummies.newUser,
-            user = new db.User(fakeUser);
+        var user = new db.User(fakeUser);
 
         user.save(function(err) {
             assert.ifError(err);
@@ -60,6 +61,17 @@ describe('User Model', function() {
             done();
         });
 
+    });
+
+    it('should default new user to role `user`', function(done) {
+        db.User
+            .findOne({active: true, username: fakeUser.username})
+            .exec(function(err, user) {
+                assert.ifError(err);
+                assert.ok(user.isA('user'), 'should be `user`');
+
+                done();
+            });
     });
 
 });
