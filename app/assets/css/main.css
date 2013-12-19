@@ -6,7 +6,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
-  background: lightslategray;
+  background: #0e83cd;
   color: white;
 }
 
@@ -49,12 +49,20 @@ h5 {
   list-style: none;
 }
 
-.login {
+.column {
   width: 90%;
   margin: 0 auto;
   text-align: center;
 }
 
+.login {
+  color: #ab3c3c;
+  width: 85%;
+  background: white;
+  border-radius: 2px;
+  padding: 3em 1em; 
+  margin: 0 auto;
+}
 
 .login-image {
   font-size: 7em;
@@ -68,31 +76,52 @@ h5 {
 }
 
 .login-image:hover {
-  background: white;
-  color: lightslategray;
+  background: #ab3c3c;
+  color: white;
 }
 
 .inputs {
-  width: 70%;
+  width: 60%;
   display: inline-block;
 }
 
 .inputs input {
-  width: 90%;
+  width: 80%;
   display: inline-block;
   margin-left: 1em;
   padding-left: 1em;
 }
 
+.button {
+  border: none;
+  border-radius: 5px;
+  background: #cb4e4e;
+  color: #fff;
+  box-shadow: 0 6px #ab3c3c;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+  position: relative;
+}
+
+.button:hover {
+  box-shadow: 0 4px #ab3c3c;
+  top: 2px;
+}
+
+.button:active {
+  box-shadow: 0 0 #ab3c3c;
+  top: 6px;
+}
+
 .submit {
   width: 30%;
   float: right;
-  border: 1px solid lightgrey;
-  color: darkgray;
   font-size: 2em;
-  font-weight: bold;
-  border-radius: 5px;
+  font-weight: bold;  
   line-height: 1.6em;  
+  margin-right: 10px;
+ 
 }
 
 .submit:hover {
@@ -100,18 +129,18 @@ h5 {
 }
 
 @media (min-width: 680px) {
-  .login {
+  .column {
     width: 55%;
   }
 }       
 @media (min-width: 1024px) {
-  .login {
+  .column {
     width: 35%;
   }
 }       
 
 @media (min-width: 1440px) {
-  .login {
+  .column {
     width: 25%;
   }
 }
