@@ -5,9 +5,11 @@ block content
     p Login Form
     form(method="post")
         div.username
+            span.icon-user
             span Username
             input(name="username", type="text", value=(user.username || ""), autofocus)
         div.password
+            span.icon-lock
             span Password
             input(name="password", type="password")
         input(name="submit", type="submit")
