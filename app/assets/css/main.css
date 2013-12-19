@@ -62,7 +62,10 @@ h5 {
   border-radius: 2px;
   padding: 3em 1em; 
   margin: 0 auto;
+<<<<<<< HEAD
   box-shadow: 0 4px 10px black;
+=======
+>>>>>>> ad8cb9557da45fd3f8903fa52d4fee5cf199a67b
 }
 
 .login-image {
@@ -76,6 +79,14 @@ h5 {
   box-sizing: content-box;
 }
 
+<<<<<<< HEAD
+=======
+.login-image:hover {
+  background: #ab3c3c;
+  color: white;
+}
+
+>>>>>>> ad8cb9557da45fd3f8903fa52d4fee5cf199a67b
 .inputs {
   width: 60%;
   display: inline-block;
@@ -86,6 +97,7 @@ h5 {
   display: inline-block;
   margin-left: 1em;
   padding-left: 1em;
+<<<<<<< HEAD
   line-height: 2em;
   border: 1px solid grey;
 }
@@ -93,6 +105,8 @@ h5 {
 .inputs input:hover, .inputs input:focus {
   outline: none;
   box-shadow: inset 0px 1px 4px lightgray;
+=======
+>>>>>>> ad8cb9557da45fd3f8903fa52d4fee5cf199a67b
 }
 
 .button {
@@ -124,7 +138,11 @@ h5 {
   font-weight: bold;  
   line-height: 1.6em;  
   margin-right: 10px;
+<<<<<<< HEAD
   margin-top: 10px;
+=======
+ 
+>>>>>>> ad8cb9557da45fd3f8903fa52d4fee5cf199a67b
 }
 
 .submit:hover {
