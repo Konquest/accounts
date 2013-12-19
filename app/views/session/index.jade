@@ -1,17 +1,15 @@
 extends ../application.jade
 
 block content
-    div.logo(style="font-family: 'Bigelow Rules', cursive; font-size: 72px;")= site.name
-    p Login Form
-    form(method="post")
-        div.username
-            span.icon-user
-            span Username
-            input(name="username", type="text", value=(user.username || ""), autofocus)
-        div.password
-            span.icon-lock
-            span Password
-            input(name="password", type="password")
-        input(name="submit", type="submit")
-
-    a(href="/users/new") New User?
+    div.login
+      div.logo(style="font-family: 'Bigelow Rules', cursive; font-size: 72px;")= site.name
+      form(method="post")
+          div.username
+              span.icon-user
+              input(name="username", type="text", value=(user.username || ""), autofocus, placeholder="Username")
+          div.password
+              span.icon-lock
+              input(name="password", type="password", placeholder="Password")
+          input(name="submit", type="submit")
+  
+      a(href="/users/new") New User?
