@@ -1,6 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  background: lightslategray;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -28,28 +44,16 @@ h5 {
   font-size: 1.5em;
 }
 
+.navgiation {
+  list-style: none;
+}
+
 .login {
   width: 90%;
   margin: 0 auto;
   text-align: center;
 }
 
-@media (min-width: 680px) {
-  .login {
-    width: 75%;
-  }
-}       
-@media (min-width: 1024px) {
-  .login {
-    width: 50%;
-  }
-}       
-
-@media (min-width: 1440px) {
-  .login {
-    width: 25%;
-  }
-}
 
 .login-image {
   font-size: 7em;
@@ -59,11 +63,12 @@ h5 {
   height: 1em;  
   border-radius: 100%;
   padding: 5px;
+  box-sizing: content-box;
 }
 
 .login-image:hover {
-  background: black;
-  color: white;
+  background: white;
+  color: lightslategray;
 }
 
 .inputs {
@@ -74,10 +79,39 @@ h5 {
 .inputs input {
   width: 90%;
   display: inline-block;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 .submit {
   width: 30%;
   float: right;
-  height: 4em;
+  border: 1px solid lightgrey;
+  color: darkgray;
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 5px;
+  line-height: 1.6em;  
 }
+
+.submit:hover {
+  cursor: pointer;
+}
+
+@media (min-width: 680px) {
+  .login {
+    width: 55%;
+  }
+}       
+@media (min-width: 1024px) {
+  .login {
+    width: 35%;
+  }
+}       
+
+@media (min-width: 1440px) {
+  .login {
+    width: 25%;
+  }
+}
+
