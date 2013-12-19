@@ -26,7 +26,7 @@ var UserSchema = new Schema({
     name: {type: String, required: true},
     email: {type: String, required: true, default: '', index: {unique: true}},            // Primary email
     contacts: {type: [ContactSchema], default: []},
-    roles: {type: [String], default: ['user']}, 
+    roles: {type: [String], default: ['user']},
     applications: {type: [String], ref: 'Application', default: []},
     created: {type: Date, default: Date.now},
     modified: {type: Date, default: Date.now}
@@ -48,22 +48,22 @@ UserSchema.path('password').validate(function (password) {
     return (password || '').length >= 4;
 }, 'must be 4 characters or more');
 
-UserSchema.path('roles').validate(function(roles) { 
+UserSchema.path('roles').validate(function(roles) {
     return roles.length > 0;
 }, 'must have at least one role');
 
-UserSchema.path('roles').validate(function(roles) { 
+UserSchema.path('roles').validate(function(roles) {
     var possibleRoles = UserSchema.roles,
-        valid = true; 
-    
+        valid = true;
+
     roles.forEach(function(role) {
         if (possibleRoles.indexOf(role) === -1) {
             valid = false;
         }
     });
-    
+
     return valid;
-}, 'must be valid roles - ' + UserSchema.roles);
+}, 'must be valid roles - ' + UserSchema.roles.join(', '));
 
 // Operational
 UserSchema.pre('validate', function(next) {
@@ -80,7 +80,7 @@ UserSchema.pre('validate', function(next) {
 
 UserSchema.pre('save', function(next) {
     var user = this;
-        
+
     if (!user.isModified('password')) return next(); // only hash the password if it has been modified (or is new)
 
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
@@ -114,16 +114,16 @@ UserSchema.methods.isA = function(role) {
 UserSchema.statics.migrate = function(models) {
     var update = function(model) {
         var changed = false;
-        
+
         Object.keys(UserSchema.tree).forEach(function(fieldName) {
             var field = UserSchema.tree[fieldName];
-            
+
             if (field.default && !model[fieldName]) {
                 model[fieldName] = __.result(field, 'default');
                 changed = true;
             }
         });
-        
+
         if (changed) {
             console.log('Auto migrated missing fields to defaults, User - ' + model.id);
             return model.save();

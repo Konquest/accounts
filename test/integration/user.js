@@ -6,8 +6,8 @@ var request = require('supertest'),
     common = require('../common'),
     __ = require('underscore');
 
-var createUser = common.fixtures.createUser,
-    createJsonUser = common.fixtures.createUser,
+var createUser = common.dummies.createUser,
+    createJsonUser = common.dummies.createUser,
     host = 'http://localhost:' + config.port,
     urls = common.urls,
     sessionRequest = request.agent(host);

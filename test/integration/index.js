@@ -7,25 +7,15 @@ var async = require('async'),
 describe('Integration Test:', function() {
     before(function(done) {
         this.timeout(5000);
-        console.log('\nIntegration testing');
+        console.log('\nIntegration testing'.underline);
 
         app.start(function() {
-            async.parallel([
-                db.User.remove().exec,
-                db.Application.remove().exec,
-                db.AuthorizationCode.remove().exec,
-                db.AccessToken.remove().exec,
-                db.RefreshToken.remove().exec
-            ], done);
+            common.clearData(done);
         });
     });
 
-    after(function(done){
-        app.stop(done);
-    });
-
-    var newUser = common.fixtures.newUser;
     it('should create new user', function(done) {
+        var newUser = common.dummies.newUser;
         db.User.create(newUser, function(err, user) {
             assert.ifError(err);
             assert.equal(user.name, newUser.name);
