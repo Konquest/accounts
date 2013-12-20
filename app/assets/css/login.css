@@ -7,12 +7,12 @@
   border-radius: 2px;
   box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.5);  
   position: relative;
-  top: 15%;
+  top: 5%;
 }
 
 #new-user {
   position: relative;
-  top: 20%;
+  top: 5%;
 }
 
 .login h1 {
@@ -63,9 +63,9 @@
 .button {
   border: none;
   border-radius: 5px;
-  background: #FFC359;
+  background: #68A3FF;
   color: #fff;
-  box-shadow: 0 6px #C09E62;
+  box-shadow: 0 6px #2356A7;
   -webkit-transition: none;
   -moz-transition: none;
   transition: none;
@@ -73,12 +73,12 @@
 }
 
 .button:hover {
-  box-shadow: 0 4px #C09E62;
+  box-shadow: 0 4px #2356A7;
   top: 2px;
 }
 
 .button:active {
-  box-shadow: 0 0 #C09E62;
+  box-shadow: 0 0 #2356A7;
   top: 6px;
 }
 
