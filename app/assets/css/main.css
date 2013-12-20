@@ -1,3 +1,5 @@
+/* http://colorschemedesigner.com/#3G21TkQ--vywV */
+
 @import "layouts.css";
 @import "navigation.css";
 @import "login.css";
@@ -10,7 +12,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
-  background: #0e83cd;
+  background: #68A3FF;
   min-width: 320px;
   color: white;
   margin: 0;
