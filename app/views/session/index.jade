@@ -4,8 +4,9 @@ block content
   div.column
     
     div.login
-      h1= site.name
-      div.icon-user3.login-image
+      h1
+        span.icon-user3.icon
+        = site.name
       form(method="post")
         div.inputs
           div.username
