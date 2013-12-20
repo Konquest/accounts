@@ -1,4 +1,5 @@
 @import "layouts.css";
+@import "navigation.css";
 @import "login.css";
 
 * {
@@ -12,6 +13,7 @@ body {
   background: #0e83cd;
   min-width: 320px;
   color: white;
+  margin: 0;
 }
 
 a {

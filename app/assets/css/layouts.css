@@ -1,3 +1,7 @@
+.container {
+  margin-top: 80px;
+}
+
 .column {
   width: 90%;
   margin: 0 auto;

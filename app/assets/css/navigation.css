@@ -1,0 +1,27 @@
+header {
+  position: absolute;
+  top: 0;
+  background: #ecf0f1;
+  width: 100%;
+}
+
+header ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header a {
+  color: blue;
+}
+
+.menu-main li {
+  padding: 10px;
+  display: inline-block;
+}
+
+.menu-main li a, .menu-main li a:hover {
+  text-decoration: none;
+}
+
+
