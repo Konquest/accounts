@@ -15,11 +15,16 @@ var express = require('express'),
 var MongoStore = require('connect-mongo')(express);
 //var MongoStore = require('connect-mongostore')(express);
 
+
+
 module.exports.init = init = function(callback) {
+    app.use(express.static(__dirname+'/assets'));
+  
     app.configure(function() {
         app.set('port', process.env.PORT || config.port);
         app.set('views', __dirname + '/views');
         app.set('view engine', 'jade');
+
         if (config.logger !== false) {
             app.use(express.logger(config.logger || '[:date] :remote-addr ":method :url HTTP/:http-version" :status :res[content-length]b ":user-agent"'));
         }

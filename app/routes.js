@@ -39,5 +39,4 @@ module.exports.setup = function(app) {
     app.get('/oauth2/authorize', loginCheck, controllers.oauth2.wip);    // Authorization dialog
     app.post('/oauth2/authorize', loginCheck, controllers.oauth2.decision);    // Authorization decision
     app.post('/oauth2/token', controllers.oauth2.wip);    // Access token request
-    
 };
