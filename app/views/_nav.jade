@@ -1,13 +1,12 @@
 header
   ul#menu.menu-main
-    li
+    li.menu-main-item
       a(href="/") Home
     if currentUser
-      li
+      li.menu-main-item
         a(href="/").icon-notification
-    li.menu-trigger
+    li.menu-trigger.menu-main-item
       a.icon-menu2
-        span Menu
       nav.menu-wrapper
         div.gn-scroller
           ul.menu

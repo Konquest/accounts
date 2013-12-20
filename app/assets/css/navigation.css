@@ -1,7 +1,6 @@
 header {
   position: absolute;
   top: 0;
-  background: #ecf0f1;
   width: 100%;
 }
 
@@ -9,22 +8,53 @@ header ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  background: #ecf0f1;
 }
 
 header a {
   color: #2356A7;
 }
 
-.menu-main li {
+header [class^="icon-"], .inputs [class*=" icon-"] {
+  font-size: 1.5em;
+  line-height: 0.6em;
+}
+
+
+.menu-main-item {
   padding: 10px;
   display: inline-block;
 }
 
-.menu-main li a, .menu-main li a:hover {
+.menu-main-item > a {
+  padding: 10px;
   text-decoration: none;
 }
 
+.menu-main-item:hover {
+  background: #AECDFF;
+}
+
+.menu-main-item > a:hover {
+  text-decoration: none;
+}
 
 .menu-trigger {
   float: right;
+}
+
+.menu-trigger:hover .menu-wrapper {
+  right: 0;
+  width: 200px;
+}
+
+.menu-wrapper {
+  width: 200px;
+  position: absolute;
+  right: -20px;
+  background: #ecf0f1;
+  padding: 10px;
+  top: 39px;
+  transition: all 1s;
+  width: 0;
 }

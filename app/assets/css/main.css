@@ -16,6 +16,7 @@ body {
   min-width: 320px;
   color: white;
   margin: 0;
+  overflow: hidden;
 }
 
 a {
@@ -63,3 +64,6 @@ h5 {
   }
 }
 
+input:focus {
+  outline: none;
+}

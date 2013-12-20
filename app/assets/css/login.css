@@ -35,12 +35,6 @@
   width: 100%;
 }
 
-.inputs [class^="icon-"], .inputs [class*=" icon-"] {
-  font-size: 26px;  
-  padding-top: 11px;
-  float: left;
-}
-
 .inputs input {
   width: 100%;
   display: block;
@@ -51,7 +45,6 @@
 }
 
 .inputs input:hover, .inputs input:focus {
-  outline: none;
   box-shadow: inset 0px 1px 4px lightgray;
 }
 
