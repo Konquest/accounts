@@ -2,17 +2,18 @@ extends ../application.jade
 
 block content
   div.column
-    h1= site.name    
-    form(method="post").login
+    h1= site.name
+    div.login
       div.icon-happy.login-image
-      div.inputs
-        div.username
-          span.icon-user
-          input(name="username", type="text", value=(user.username || ""), autofocus, placeholder="Username")
-        div.password
-          span.icon-lock
-          input(name="password", type="password", placeholder="Password")
-      input(name="submit", type="submit", value="Login").submit.button
+      form(method="post")
+        div.inputs
+          div.username
+            span.icon-user
+            input(name="username", type="text", value=(user.username || ""), autofocus, placeholder="Username")
+          div.password
+            span.icon-lock
+            input(name="password", type="password", placeholder="Password")
+        input(name="submit", type="submit", value="Login").submit.button
   
     div#new-user
       a(href="/users/new") 

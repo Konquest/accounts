@@ -1,3 +1,6 @@
+@import "layouts.css";
+@import "login.css";
+
 * {
   box-sizing: border-box;
 }
@@ -49,102 +52,5 @@ h5 {
   list-style: none;
 }
 
-.column {
-  width: 90%;
-  margin: 0 auto;
-  text-align: center;
-}
 
-.login {
-  color: #ab3c3c;
-  width: 85%;
-  background: white;
-  border-radius: 2px;
-  padding: 3em 1em; 
-  margin: 0 auto;
-  box-shadow: 0 4px 10px black;
-}
-
-.login-image {
-  font-size: 7em;
-  margin: auto;
-  margin-bottom: 20px;
-  width: 1em;
-  height: 1em;  
-  border-radius: 100%;
-  padding: 5px;
-  box-sizing: content-box;
-}
-
-.inputs {
-  width: 60%;
-  display: inline-block;
-}
-
-.inputs input {
-  width: 80%;
-  display: inline-block;
-  margin-left: 1em;
-  padding-left: 1em;
-  line-height: 2em;
-  border: 1px solid grey;
-}
-
-.inputs input:hover, .inputs input:focus {
-  outline: none;
-  box-shadow: inset 0px 1px 4px lightgray;
-}
-
-.button {
-  border: none;
-  border-radius: 5px;
-  background: #cb4e4e;
-  color: #fff;
-  box-shadow: 0 6px #ab3c3c;
-  -webkit-transition: none;
-  -moz-transition: none;
-  transition: none;
-  position: relative;
-}
-
-.button:hover {
-  box-shadow: 0 4px #ab3c3c;
-  top: 2px;
-}
-
-.button:active {
-  box-shadow: 0 0 #ab3c3c;
-  top: 6px;
-}
-
-.submit {
-  width: 30%;
-  float: right;
-  font-size: 2em;
-  font-weight: bold;  
-  line-height: 1.6em;  
-  margin-right: 10px;
-  margin-top: 10px;
-}
-
-.submit:hover {
-  cursor: pointer;
-}
-
-@media (min-width: 680px) {
-  .column {
-    width: 55%;
-  }
-}       
-@media (min-width: 1024px) {
-  .column {
-    width: 35%;
-  }
-}       
-
-@media (min-width: 1440px) {
-  .column {
-    width: 25%;
-  }
-}
 
