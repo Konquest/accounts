@@ -10,6 +10,7 @@ body {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   background: #0e83cd;
+  min-width: 320px;
   color: white;
 }
 
@@ -52,5 +53,9 @@ h5 {
   list-style: none;
 }
 
-
+@media (max-width: 400px) {
+  h1 {
+    font-size: 3em;
+  }
+}
 
