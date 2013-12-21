@@ -9,7 +9,8 @@ header {
   margin: 0;
   padding: 0;
   background: #ecf0f1;
-  height: 39px;
+  height: 40px;
+  border-bottom: 1px solid grey;
 }
 
 header a {
@@ -50,12 +51,13 @@ header a {
 }
 
 .menu-wrapper {
+  border-left: 1px solid grey;
   width: 150px;
   height: 3000px;
   position: fixed;
   right: -150px;
   background: #ecf0f1;
-  top: 39px;
+  top: 40px;
   transition: all ease-in 0.5s;
 }
 
