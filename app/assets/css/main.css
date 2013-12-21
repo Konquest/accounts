@@ -16,7 +16,7 @@ body {
   min-width: 320px;
   color: white;
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 a {

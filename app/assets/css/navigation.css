@@ -4,18 +4,19 @@ header {
   width: 100%;
 }
 
-header ul {
+#menu {
   list-style: none;
   margin: 0;
   padding: 0;
   background: #ecf0f1;
+  height: 39px;
 }
 
 header a {
   color: #2356A7;
 }
 
-header [class^="icon-"], .inputs [class*=" icon-"] {
+.menu-main-item > [class^="icon-"], .menu-main-item > [class*=" icon-"] {
   font-size: 1.5em;
   line-height: 0.6em;
 }
@@ -23,7 +24,8 @@ header [class^="icon-"], .inputs [class*=" icon-"] {
 
 .menu-main-item {
   padding: 10px;
-  display: inline-block;
+  display: block;
+  float: left;
 }
 
 .menu-main-item > a {
@@ -45,16 +47,48 @@ header [class^="icon-"], .inputs [class*=" icon-"] {
 
 .menu-trigger:hover .menu-wrapper {
   right: 0;
-  width: 200px;
 }
 
 .menu-wrapper {
-  width: 200px;
-  position: absolute;
-  right: -20px;
+  width: 150px;
+  height: 3000px;
+  position: fixed;
+  right: -150px;
   background: #ecf0f1;
-  padding: 10px;
   top: 39px;
-  transition: all 1s;
-  width: 0;
+  transition: all ease-in 0.5s;
+}
+
+.menu-notification {
+  float: right;
+}
+
+.menu-notification[data-notification="none"] [class^="icon-"] {
+  color: grey;
+}
+
+.menu-notification[data-notification="none"]:hover {
+  background: #ecf0f1;
+}
+
+.menu-notification[data-notification="none"]:hover a {
+  cursor: default;
+}
+
+
+.menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.menu a {
+  width: 100%;
+  display: block;
+  padding: 10px 5px 10px 15px;
+}
+
+.menu a:hover {
+  background: #AECDFF;
+  text-decoration: none;
 }
