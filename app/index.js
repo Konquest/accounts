@@ -89,7 +89,7 @@ module.exports.start = start = function(callback) {
 };
 
 module.exports.stop = function(callback) {
-    async.parallel([close, db.close], function(err) {
+    async.parallel([close, db.close], function() {
         console.warn('\nServer shut down');
         if (callback) callback.call(app);
     });

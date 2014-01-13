@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId,
-    Mixed = Schema.Types.Mixed,
+    // ObjectId = Schema.Types.ObjectId,
+    // Mixed = Schema.Types.Mixed,
     uuid = require('node-uuid');
 
 // Application is synonymous to RFC 6749 Client

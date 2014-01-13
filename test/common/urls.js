@@ -1,5 +1,3 @@
-var fakeUser = require('./dummies').newUser;
-
 module.exports = {
     logout: '/session/logout',
     home: '/',

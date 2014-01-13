@@ -1,8 +1,6 @@
 var request = require('supertest'),
-    assert = require('assert'),
     app = require('../../index'),
     config = app.config,
-    db = app.db,
     common = require('../common'),
     __ = require('underscore');
 

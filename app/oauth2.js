@@ -1,5 +1,5 @@
 var oauth2orize = require('oauth2orize'),
-    passport = require('passport'),
+    //passport = require('passport'),
     config = require('../config'),
     db = require('./db');
 
@@ -45,7 +45,7 @@ if (config.oauth2.features.code) {
             }, function(err, accessToken) {
                 if (err) return done(err);
 
-                if (authCode.scope && authCode.scope.indexOf("offline_access") === 0) {
+                if (authCode.scope && authCode.scope.indexOf('offline_access') === 0) {
                     db.RefreshToken.create({
                         user: authCode.user,
                         application: authCode.application,
@@ -101,7 +101,7 @@ if (config.oauth2.features.password) {
             }, function(err, accessToken) {
                 if (err) return done(err);
 
-                if (scope && scope.indexOf("offline_access") === 0) {
+                if (scope && scope.indexOf('offline_access') === 0) {
                     db.RefreshToken.create({
                         user: user.id,
                         application: application.id,

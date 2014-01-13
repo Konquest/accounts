@@ -1,5 +1,4 @@
-var async = require('async'),
-    assert = require('assert'),
+var assert = require('assert'),
     common = require('../common'),
     app = require('../../'),
     db = app.db;

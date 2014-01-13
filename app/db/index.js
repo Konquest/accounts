@@ -12,7 +12,7 @@ mongoose.connection.on('error', function() {
 });
 
 module.exports.init = function(callback) {
-    mongoose.connect(config.db, {auto_reconnect: true}, function(err) {
+    mongoose.connect(config.db, {auto_reconnect: true}, function() {
         console.warn('Mongo connection established.');
         if (callback) callback();
     });

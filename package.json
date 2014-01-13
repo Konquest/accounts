@@ -8,9 +8,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "pretest": "./node_modules/jshint/bin/jshint config index.js app test",
-    "test": "NODE_ENV=testing ./node_modules/cover/bin/cover run ./node_modules/mocha/bin/_mocha && ./node_modules/cover/bin/cover report html",
-    "prestart": "./node_modules/jshint/bin/jshint config index.js app",
+    "pretest": "./node_modules/.bin/jshint config index.js app test",
+    "test": "NODE_ENV=testing ./node_modules/.bin/cover run ./node_modules/.bin/_mocha && ./node_modules/.bin/cover report html",
+    "prestart": "./node_modules/.bin/jshint config index.js app",
     "start": "node index.js"
   },
   "repository": {

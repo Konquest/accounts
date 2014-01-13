@@ -1,9 +1,6 @@
 var request = require('supertest'),
-    assert = require('assert'),
-    async = require('async'),
     app = require('../../'),
     config = app.config,
-    db = app.db,
     common = require('../common'),
     __ = require('underscore');
 

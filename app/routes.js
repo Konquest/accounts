@@ -1,5 +1,5 @@
 var login = require('connect-ensure-login'),
-    oauth2 = require('./oauth2'),
+    // oauth2 = require('./oauth2'),
     controllers = require('./controllers');
 
 // Route to Controller Dispatcher

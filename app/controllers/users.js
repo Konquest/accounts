@@ -21,7 +21,7 @@ module.exports.search = function(req, res, next) {
     });
 };
 
-module.exports.form = function(req, res, next) {
+module.exports.form = function(req, res) {
     res.render('users/form');
 };
 

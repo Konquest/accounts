@@ -1,8 +1,8 @@
 var config = require('../../config'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId,
-    Mixed = Schema.Types.Mixed,
+    // ObjectId = Schema.Types.ObjectId,
+    // Mixed = Schema.Types.Mixed,
     uid = require('uid2');
 
 var defaultCode = function() {

@@ -4,11 +4,10 @@ var passport = require('passport'),
     BasicStrategy = require('passport-http').BasicStrategy,
     ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy,
     BearerStrategy = require('passport-http-bearer').Strategy,
-    config = require('../config'),
     db = require('./db');
 
 
-module.exports.setup = function(app) {
+module.exports.setup = function() {
     // Anonymous
     passport.use(new AnonymousStrategy());
 

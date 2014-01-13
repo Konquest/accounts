@@ -1,6 +1,6 @@
 var passport = require('passport');
 
-module.exports.index = function(req, res, next) {
+module.exports.index = function(req, res) {
     if (req.user) {
         res.redirect('/users/' + req.user.username);
     } else {
@@ -10,7 +10,7 @@ module.exports.index = function(req, res, next) {
 };
 
 module.exports.login = function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
+    passport.authenticate('local', function(err, user) {
         if (err) return next(err);
         if (!user) {
             req.flashNow('error', 'Incorrect Username/Password');
