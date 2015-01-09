@@ -20,4 +20,4 @@ var AuthorizationCodeSchema = new Schema({
     expires: {type: Date, default: Date.now, expires: 0}    // 10 minutes
 });
 
-module.exports = mongoose.model('AuthorizationCode', AuthorizationCodeSchema);
+module.exports = mongoose.model('AuthorizationCodes', AuthorizationCodeSchema);

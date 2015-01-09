@@ -1,5 +1,69 @@
 var express = require('express'),
+    bodyParser = require('body-parser'),
+    bunyan = require('bunyan'),
+    compression = require('compression'),
+    cors = require('cors'),
+    errorHandler = require('./middleware/error'),
+    logger = require('express-bunyan-logger'),
+    helmet = require('helmet'),
+    mongoose = require('mongoose'),
+    package = require('../package.json'),
     passport = require('passport'),
+    routes = require('./routes'),
+    session = require('express-session');
+
+mongoose.connect(process.env.MONGO_URL, {auto_reconnect: true});
+
+module.exports = function() {
+
+    var app = express();
+
+
+    app.log = bunyan({
+        name: package.name,
+        level: process.env.LOG_LEVEL
+    });
+
+    // Settings
+    app
+        .set('x-powered-by', false)
+        .set('view engine', 'jade')
+        .set('views', __dirname + '/views');
+
+    // Middleware
+    app
+        .use(compression())
+        .use(helmet.xframe())
+        .use(helmet.nosniff())
+        .use(logger())
+        .use(cors())
+        .use(bodyParser.json())
+        .use(bodyParser.urlencoded({extended: true}))
+        .use(passport.initialize())
+        .use(passport.session())
+        .use(session({
+            resave: false,
+            saveUninitialized: true,
+            name: process.env.SESSION_NAME,
+            secret: process.env.SESSION_SECRET
+        }));
+
+    // Routing
+    routes(app);
+
+    // Errors
+    app
+        .use(errorHandler.bind(app));
+
+    return app;
+};
+
+
+
+/*
+var express = require('express'),
+    passport = require('passport'),
+    session = require('cookie-session'),
     flash = require('connect-flash'),
     async = require('async'),
     db = require('./db'),
@@ -16,12 +80,11 @@ var MongoStore = require('connect-mongo')(express);
 //var MongoStore = require('connect-mongostore')(express);
 
 
-
 module.exports.init = init = function(callback) {
     app.use(express.static(__dirname+'/assets'));
-  
+
     app.configure(function() {
-        app.set('port', process.env.PORT || config.port);
+        app.set('port', process.env.PORT);
         app.set('views', __dirname + '/views');
         app.set('view engine', 'jade');
 
@@ -97,3 +160,4 @@ module.exports.stop = function(callback) {
 
 module.exports.db = db;
 module.exports.config = config;
+*/

@@ -14,4 +14,4 @@ var ApplicationSchema = new Schema({
     modified: {type: Date, default: Date.now}
 });
 
-module.exports = mongoose.model('Application', ApplicationSchema);
+module.exports = mongoose.model('Applications', ApplicationSchema);

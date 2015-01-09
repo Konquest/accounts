@@ -1,32 +1,30 @@
 var request = require('supertest'),
-    app = require('../../index'),
-    config = app.config,
+    server = require('../../server')(),
     common = require('../common'),
     __ = require('underscore');
 
 var createUser = common.dummies.createUser,
     createJsonUser = common.dummies.createUser,
-    host = 'http://localhost:' + config.port,
     urls = common.urls,
-    sessionRequest = request.agent(host);
+    sessionRequest = request.agent(server);
 
 describe('User Management', function() {
     it('should redirect to login while logged out', function(done) {
         this.timeout(4000);
-        request(host)
+        request(server)
             .get(urls.users)
             .expect('Location', urls.session)
             .expect(302, done);
     });
 
     it('should show registration form', function(done) {
-        request(host)
+        request(server)
             .get(urls.userForm)
             .expect(200, done);
     });
 
     it('should create a new user and redirect to login', function(done) {
-        request(host)
+        request(server)
             .post(urls.users)
             .send(createUser)
             .expect('Location', urls.session)
@@ -34,7 +32,7 @@ describe('User Management', function() {
     });
 
     it.skip('should create a new user in JSON', function(done) {
-        request(host)
+        request(server)
             .post(urls.users)
             .set('Accept', 'application/json')
             .send(createJsonUser)

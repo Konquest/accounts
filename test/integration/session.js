@@ -1,19 +1,17 @@
 var request = require('supertest'),
-    app = require('../../'),
-    config = app.config,
+    server = require('../../server')(),
     common = require('../common'),
     __ = require('underscore');
 
 
 var fakeUser = common.dummies.newUser,
-    host = 'http://localhost:' + config.port,
     urls = common.urls,
-    sessionRequest = request.agent(host);
+    sessionRequest = request.agent(server);
 
 describe('Session Management', function() {
 
     it('should show login page', function(done) {
-        request(host)
+        request(server)
             .get(urls.session)
             .expect(200, done);
     });
@@ -21,7 +19,7 @@ describe('Session Management', function() {
     it('should show login with error when failing to login', function(done) {
         var credentials = __.pick(fakeUser, 'username');
 
-        request(host)
+        request(server)
             .post(urls.session)
             .send(credentials)
             .expect(200)

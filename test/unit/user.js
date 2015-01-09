@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    db = require('../../app/db');
+    db = require('../../server/models');
 
 var fakeUser = require('../common').dummies.newUser;
 

@@ -18,4 +18,4 @@ var AccessTokenSchema = new Schema({
     expires: {type: Date, default: Date.now, expires: 0}
 });
 
-module.exports = mongoose.model('AccessToken', AccessTokenSchema);
+module.exports = mongoose.model('AccessTokens', AccessTokenSchema);

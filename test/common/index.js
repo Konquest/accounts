@@ -1,5 +1,5 @@
 var async = require('async'),
-    db = require('../../').db;
+    db = require('../../server/models');
 
 module.exports.dummies = require('./dummies');
 module.exports.urls = require('./urls');

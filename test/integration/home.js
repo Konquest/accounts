@@ -1,19 +1,17 @@
 var request = require('supertest'),
-    app = require('../../'),
-    config = app.config,
+    server = require('../../server')(),
     common = require('../common'),
     __ = require('underscore');
 
 
 var fakeUser = common.dummies.newUser,
-    host = 'http://localhost:' + config.port,
     urls = common.urls,
-    sessionRequest = request.agent(host);
+    sessionRequest = request.agent(server);
 
 describe('Home Page', function() {
 
     it('should redirect to login while logged out', function(done) {
-        request(host)
+        request(server)
             .get(urls.home)
             .expect('Location', urls.session)
             .expect(302, done);

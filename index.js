@@ -1,9 +1,15 @@
-//var app = process.env.COVERAGE ? require('./app-cov') : require('./app');
+/**
+ * Initialize configurations
+ */
+var dotenv = require('dotenv');
+dotenv.load();  // Initialize environment config
 
-var app = require('./app');
+/**
+ * Start server
+ */
+var Server = require('./server');
 
-if (require.main === module) {
-    app.start();
-}
-
-module.exports = app;
+var server = new Server();
+server.listen(process.env.PORT, function() {
+    server.log.info('Started server on port %d in %s mode.', process.env.PORT, process.env.NODE_ENV);
+});

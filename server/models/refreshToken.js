@@ -18,4 +18,4 @@ var RefreshTokenSchema = new Schema({
     expires: {type: Date, default: Date.now, expires: 0}
 });
 
-module.exports = mongoose.model('RefreshToken', RefreshTokenSchema);
+module.exports = mongoose.model('RefreshTokens', RefreshTokenSchema);

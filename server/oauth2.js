@@ -1,7 +1,7 @@
 var oauth2orize = require('oauth2orize'),
     //passport = require('passport'),
     config = require('../config'),
-    db = require('./db');
+    db = require('./models');
 
 var server = module.exports = oauth2orize.createServer();
 
