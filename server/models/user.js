@@ -5,7 +5,6 @@ var __ = require('underscore'),
     // Mixed = Schema.Types.Mixed,
     bcrypt = require('bcrypt'),
     uuid = require('node-uuid'),
-    isArray = require('util').isArray,
     SALT_WORK_FACTOR = 10;
 
 // Definition
@@ -23,7 +22,6 @@ var UserSchema = new Schema({
     active: {type: Boolean, default: true},
     username: {type: String, required: true, index: {unique: true}},
     password: {type: String, required: true},
-    name: {type: String, required: true},
     email: {type: String, required: true, default: '', index: {unique: true}},            // Primary email
     contacts: {type: [ContactSchema], default: []},
     roles: {type: [String], default: ['user']},
@@ -108,35 +106,6 @@ UserSchema.methods.normalize = function() {
 
 UserSchema.methods.isA = function(role) {
     return ~UserSchema.roles.indexOf(role);
-};
-
-// TODO: Refracter out to a separate library - https://trello.com/c/YBKLuFBU/8-extract-user-table-migration-to-an-external-library
-UserSchema.statics.migrate = function(models) {
-    var update = function(model) {
-        var changed = false;
-
-        Object.keys(UserSchema.tree).forEach(function(fieldName) {
-            var field = UserSchema.tree[fieldName];
-
-            if (field.default && !model[fieldName]) {
-                model[fieldName] = __.result(field, 'default');
-                changed = true;
-            }
-        });
-
-        if (changed) {
-            console.log('Auto migrated missing fields to defaults, User - ' + model.id);
-            return model.save();
-        }
-    };
-
-    if (isArray(models)) {
-        models.forEach(function(model) {
-            update(model);
-        });
-    } else {
-        update(models);
-    }
 };
 
 // Export

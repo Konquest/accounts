@@ -1,10 +1,11 @@
 var request = require('supertest'),
     server = require('../../server')(),
     common = require('../common'),
+    users = require('../fixtures/users'),
     __ = require('underscore');
 
-var createUser = common.dummies.createUser,
-    createJsonUser = common.dummies.createUser,
+var createUser = users.create(),
+    createJsonUser = users.create(),
     urls = common.urls,
     sessionRequest = request.agent(server);
 

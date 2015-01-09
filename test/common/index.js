@@ -1,8 +1,16 @@
 var async = require('async'),
     db = require('../../server/models');
 
-module.exports.dummies = require('./dummies');
-module.exports.urls = require('./urls');
+module.exports.urls = {
+    logout: '/session/logout',
+    home: '/',
+    users: '/users',
+    userForm: '/users/new',
+    profile: function(username) {
+        return '/users/' + username;
+    },
+    session: '/session'
+};
 
 module.exports.clearData = function(done) {
     async.parallel([

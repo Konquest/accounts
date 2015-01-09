@@ -1,10 +1,11 @@
 var request = require('supertest'),
     server = require('../../server')(),
     common = require('../common'),
+    users = require('../fixtures/users'),
     __ = require('underscore');
 
 
-var fakeUser = common.dummies.newUser,
+var fixtureUser = users.create(),
     urls = common.urls,
     sessionRequest = request.agent(server);
 
@@ -17,7 +18,7 @@ describe('Session Management', function() {
     });
 
     it('should show login with error when failing to login', function(done) {
-        var credentials = __.pick(fakeUser, 'username');
+        var credentials = __.pick(fixtureUser, 'username');
 
         request(server)
             .post(urls.session)
@@ -27,12 +28,12 @@ describe('Session Management', function() {
     });
 
     it('should redirect to user profile when logging in', function(done) {
-        var credentials = __.pick(fakeUser, 'username', 'password');
+        var credentials = __.pick(fixtureUser, 'username', 'password');
 
         sessionRequest
             .post(urls.session)
             .send(credentials)
-            .expect('Location', urls.profile(fakeUser.username))
+            .expect('Location', urls.profile(fixtureUser.username))
             .expect(302, done);
     });
 
@@ -47,7 +48,7 @@ describe('Session Management', function() {
     it('should redirect to user profile when already logged in', function(done) {
         sessionRequest
             .get(urls.session)
-            .expect('Location', urls.profile(fakeUser.username))
+            .expect('Location', urls.profile(fixtureUser.username))
             .expect(302, done);
     });
 

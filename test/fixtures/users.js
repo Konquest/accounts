@@ -1,12 +1,12 @@
 var faker = require('faker'),
     fixtures = require('node-mongoose-fixtures');
 
-var user = function() {
+var user = exports.create = function() {
     return {
-        username: faker.Internet.userName(),
+        username: faker.internet.userName(),
         password: 'password',
-        name: faker.Name.findName(),
-        email: faker.Internet.email()
+        name: faker.name.findName(),
+        email: faker.internet.email()
     };
 };
 

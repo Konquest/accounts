@@ -1,8 +1,17 @@
 /**
  * Initialize configurations
  */
+var package = require('./package.json');
 var dotenv = require('dotenv');
 dotenv.load();  // Initialize environment config
+
+/**
+ * Initialize logging
+ */
+global.log = require('bunyan')({
+    name: package.name,
+    level: process.env.LOG_LEVEL
+});
 
 /**
  * Start server

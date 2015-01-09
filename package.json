@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "jshint config index.js server test",
-    "test": "NODE_ENV=testing cover run _mocha && cover report html",
+    "test": "NODE_ENV=testing cover run _mocha -- -R spec && cover report html",
     "prestart": "jshint config index.js server",
     "start": "node index | bunyan"
   },
@@ -51,6 +51,7 @@
     "express": "^4.10.7",
     "express-bunyan-logger": "^1.1.0",
     "express-session": "^1.10.0",
+    "faker": "^2.1.2",
     "helmet": "^0.5.4",
     "jade": "^1.8.2",
     "mongoose": "^3.8.21",

@@ -2,7 +2,6 @@ extends ../application.jade
 
 block content
   div.column
-    h1= site.name
     div.login
       div.icon-happy.login-image
       form(method="post")
@@ -14,7 +13,7 @@ block content
             span.icon-lock
             input(name="password", type="password", placeholder="Password")
         input(name="submit", type="submit", value="Login").submit.button
-  
+
     div#new-user
-      a(href="/users/new") 
+      a(href="/users/new")
         h4 New User?
