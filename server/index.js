@@ -4,6 +4,8 @@ var express = require('express'),
     compression = require('compression'),
     cors = require('cors'),
     errorHandler = require('./middleware/error'),
+    flash = require('connect-flash'),
+    flashNow = require('./middleware/flashNow'),
     logger = require('express-bunyan-logger'),
     helmet = require('helmet'),
     mongoose = require('mongoose'),
@@ -12,12 +14,13 @@ var express = require('express'),
     routes = require('./routes'),
     session = require('express-session');
 
+require('./auth');
+
 mongoose.connect(process.env.MONGO_URL, {auto_reconnect: true});
 
 module.exports = function() {
 
     var app = express();
-
 
     app.log = bunyan({
         name: package.name,
@@ -46,7 +49,9 @@ module.exports = function() {
             saveUninitialized: true,
             name: process.env.SESSION_NAME,
             secret: process.env.SESSION_SECRET
-        }));
+        }))
+        .use(flash())
+        .use(flashNow);
 
     // Routing
     routes(app);
