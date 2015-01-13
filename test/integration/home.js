@@ -1,23 +1,17 @@
 var request = require('supertest'),
     server = require('../../server')(),
     common = require('../common'),
-    users = require('../fixtures/users'),
     fixtures = require('node-mongoose-fixtures'),
-    __ = require('underscore');
+    lodash = require('lodash');
 
-
-var fixtureUser = users.create(),
-    urls = common.urls,
+var urls = common.urls,
     sessionRequest = request.agent(server);
 
 describe('Home Page', function() {
 
     beforeEach(function(done) {
         fixtures.reset(function() {
-            // console.log(arguments);
-
             fixtures('users', function() {
-                // console.log(arguments);
                 done();
             });
         });
@@ -31,12 +25,13 @@ describe('Home Page', function() {
     });
 
     it('should log in', function(done) {
-        var credentials = __.pick(fixtureUser, 'username', 'password');
+        var user = fixtures.get('users').Users[0];
+        var credentials = lodash.pick(user, ['username', 'password']);
 
         sessionRequest
             .post(urls.session)
             .send(credentials)
-            .expect('Location', urls.profile(fixtureUser.username))
+            .expect('Location', urls.profile(user.username))
             .expect(302, done);
     });
 

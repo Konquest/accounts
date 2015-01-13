@@ -1,6 +1,5 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
-    bunyan = require('bunyan'),
     compression = require('compression'),
     cors = require('cors'),
     errorHandler = require('./middleware/error'),
@@ -22,11 +21,6 @@ module.exports = function() {
 
     var app = express();
 
-    app.log = bunyan({
-        name: package.name,
-        level: process.env.LOG_LEVEL
-    });
-
     // Settings
     app
         .set('x-powered-by', false)
@@ -38,18 +32,21 @@ module.exports = function() {
         .use(compression())
         .use(helmet.xframe())
         .use(helmet.nosniff())
-        .use(logger())
+        .use(logger({
+            name: package.name,
+            level: process.env.LOG_LEVEL
+        }))
         .use(cors())
         .use(bodyParser.json())
         .use(bodyParser.urlencoded({extended: true}))
-        .use(passport.initialize())
-        .use(passport.session())
         .use(session({
             resave: false,
             saveUninitialized: true,
             name: process.env.SESSION_NAME,
             secret: process.env.SESSION_SECRET
         }))
+        .use(passport.initialize())
+        .use(passport.session())
         .use(flash())
         .use(flashNow);
 

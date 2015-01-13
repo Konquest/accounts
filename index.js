@@ -20,5 +20,5 @@ var Server = require('./server');
 
 var server = new Server();
 server.listen(process.env.PORT, function() {
-    log.info('Started server on port %d in %s mode.', process.env.PORT, process.env.NODE_ENV);
+    console.log('Started server on port %d in %s mode.', process.env.PORT, process.env.NODE_ENV);
 });
