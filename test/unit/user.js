@@ -16,7 +16,7 @@ describe('User Model', function() {
         });
     });
 
-    it.skip('should fail when validating an blank user', function(done) {
+    it('should fail when validating an blank user', function(done) {
         var expectedErrors = {
                 name: 'required',
                 roles: 'must have at least one role',
@@ -33,13 +33,13 @@ describe('User Model', function() {
         user.validate(function(err) {
             assert.ok(err);    // Should be an error
             Object.keys(err.errors).forEach(function(fieldName) {
-                assert.equal(err.errors[fieldName].type, expectedErrors[fieldName], fieldName + ' must have correct error message');
+                assert.equal(err.errors[fieldName].message, expectedErrors[fieldName], fieldName + ' must have correct error message');
             });
             done();
         });
     });
 
-    it.skip('should fail when validating an invalid user', function(done) {
+    it('should fail when validating an invalid user', function(done) {
         var expectedErrors = {
                 roles: 'must be valid roles - user, admin'
             },
@@ -53,13 +53,13 @@ describe('User Model', function() {
         user.validate(function(err) {
             assert.ok(err);    // Should be an error
             Object.keys(err.errors).forEach(function(fieldName) {
-                assert.equal(err.errors[fieldName].type, expectedErrors[fieldName], fieldName + ' must have correct error message');
+                assert.equal(err.errors[fieldName].message, expectedErrors[fieldName], fieldName + ' must have correct error message');
             });
             done();
         });
     });
 
-    it('should create a new user', function(done) {
+    it('should create a new user and default to role `user`', function(done) {
         var userFixture = users.create();
         var user = new db.User(userFixture);
 
@@ -69,20 +69,11 @@ describe('User Model', function() {
             assert.notEqual(user.password, userFixture.password, 'actual password should be encrypted');
             assert.equal(user.email, userFixture.email);
 
+            assert.ok(user.isA('user'), 'should be `user`');
+
             done();
         });
 
-    });
-
-    it.skip('should default new user to role `user`', function(done) {
-        db.User
-            .findOne({active: true, username: userFixture.username})
-            .exec(function(err, user) {
-                assert.ifError(err);
-                assert.ok(user.isA('user'), 'should be `user`');
-
-                done();
-            });
     });
 
 });
