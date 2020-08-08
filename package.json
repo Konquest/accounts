@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "express": "~3.4.3",
-    "mongoose": "~3.6.20",
+    "mongoose": "~5.9.28",
     "bcrypt": "~0.7.7",
     "oauth2orize": "~1.0.0",
     "node-uuid": "~1.4.1",
