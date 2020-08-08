@@ -36,7 +36,7 @@
     "colors": "~0.6.2"
   },
   "dependencies": {
-    "express": "~3.4.3",
+    "express": "~4.17.1",
     "mongoose": "~3.6.20",
     "bcrypt": "~0.7.7",
     "oauth2orize": "~1.0.0",
