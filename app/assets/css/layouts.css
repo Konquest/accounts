@@ -1,6 +1,12 @@
+.container {
+  margin-top: 80px;
+  height: 100%;
+}
+
 .column {
   width: 90%;
   margin: 0 auto;
   text-align: center;
+  height: 100%;
 }
 

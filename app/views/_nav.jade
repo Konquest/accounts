@@ -1,12 +1,38 @@
 header
-    ul.navgiation
-        li
-            a(href="/") Home
-        if currentUser
-            li
-                a(href="/users/" + currentUser.username) My Profile
-            li
-                a(href="/session/logout") Sign Out
-        else
-            li
-                a(href="/session") Login
+  ul#menu.menu-main
+    li.menu-main-item
+      a(href="/") 
+        span Home
+    
+    li.menu-trigger.menu-main-item
+      a.icon-menu2
+      nav.menu-wrapper
+        div.gn-scroller
+          ul.menu
+            if currentUser
+              li
+                a(href="/users/" + currentUser.username)
+                  span.icon-user 
+                  span My Profile
+              li
+                a(href="/")
+                  span.icon-settings 
+                  span Settings
+              li
+                a(href="/")
+                  span.icon-notification 
+                  span Notifications
+              li
+                a(href="/session/logout")
+                  span.icon-enter 
+                  span Sign Out
+            else
+              li
+                a(href="/session")
+                  span.icon-exit 
+                  span Login
+    if currentUser
+      li.menu-main-item(data-notification="none").menu-notification
+        a(href="/")
+          span.icon-notification
+    

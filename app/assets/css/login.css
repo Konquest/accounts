@@ -1,41 +1,50 @@
 .login {
-  color: #ab3c3c;
+  color: white;
   width: 85%;
-  padding: 3em 1em; 
+  padding: 0; 
+  padding-bottom: 2em;
   margin: 0 auto;
-  height: 280px;
-  background: #ecf0f1;
-  border-radius: 2px;
+  background: #AECDFF;
+  border-radius: 5px;
+  overflow: hidden;
   box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.5);  
+  position: relative;
+  top: 10%;
 }
 
-.login-image {
-  font-size: 7em;
-  margin: auto;
-  margin-bottom: 20px;
-  width: 1em;
-  height: 1em;  
-  border-radius: 100%;
-  padding: 5px;
-  box-sizing: content-box;
+#new-user {
+  position: relative;
+  top: 10%;
+}
+
+.login h1 {
+  margin: 0;
+  margin-bottom: 0.4em;
+  background: #2356A7;
+}
+.login .icon {
+  font-size: 0.85em;
+  margin-right: 15px;
+}
+
+.login form {
+  padding: 0 1em;  
 }
 
 .inputs {
-  width: 60%;
-  float: left;
+  width: 100%;
 }
 
 .inputs input {
-  width: 80%;
-  display: inline-block;
-  margin-left: 1em;
-  padding-left: 1em;
+  width: 100%;
+  display: block;
+  padding: 0.5em 1em;
   line-height: 2em;
   border: 1px solid grey;
+  font-size: 16px;
 }
 
 .inputs input:hover, .inputs input:focus {
-  outline: none;
   box-shadow: inset 0px 1px 4px lightgray;
 }
 
@@ -46,9 +55,9 @@
 .button {
   border: none;
   border-radius: 5px;
-  background: #cb4e4e;
+  background: #68A3FF;
   color: #fff;
-  box-shadow: 0 6px #ab3c3c;
+  box-shadow: 0 6px #2356A7;
   -webkit-transition: none;
   -moz-transition: none;
   transition: none;
@@ -56,19 +65,19 @@
 }
 
 .button:hover {
-  box-shadow: 0 4px #ab3c3c;
+  box-shadow: 0 4px #2356A7;
   top: 2px;
 }
 
 .button:active {
-  box-shadow: 0 0 #ab3c3c;
+  box-shadow: 0 0 #2356A7;
   top: 6px;
 }
 
+
 .submit {
-  width: 30%;
-  float: right;
-  font-size: 2em;
+  width: 100%;
+  font-size: 1.5em;
   line-height: 1.6em;  
   margin-right: 10px;
   margin-top: 10px;
@@ -79,10 +88,6 @@
 }
 
 @media (max-width: 400px) {
-  .login {
-    height: 325px;
-  }
-
   .inputs {
     width: 100%;
     margin-bottom: 20px;
@@ -108,6 +113,6 @@
 
 @media (min-width: 1440px) {
   .column {
-    width: 25%;
+    width: 30%;
   }
 }

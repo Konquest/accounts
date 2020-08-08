@@ -1,0 +1,96 @@
+header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+#menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #ecf0f1;
+  height: 40px;
+  border-bottom: 1px solid grey;
+}
+
+header a {
+  color: #2356A7;
+}
+
+.menu-main-item > [class^="icon-"], .menu-main-item > [class*=" icon-"] {
+  font-size: 1.5em;
+  line-height: 0.6em;
+}
+
+
+.menu-main-item {
+  padding: 10px;
+  display: block;
+  float: left;
+}
+
+.menu-main-item > a {
+  padding: 10px;
+  text-decoration: none;
+}
+
+.menu-main-item:hover {
+  background: #AECDFF;
+}
+
+.menu-main-item > a:hover {
+  text-decoration: none;
+}
+
+.menu-trigger {
+  float: right;
+}
+
+.menu-trigger:hover .menu-wrapper {
+  right: 0;
+}
+
+.menu-wrapper {
+  border-left: 1px solid grey;
+  width: 150px;
+  height: 3000px;
+  position: fixed;
+  right: -150px;
+  background: #ecf0f1;
+  top: 40px;
+  transition: all ease-in 0.5s;
+}
+
+.menu-notification {
+  float: right;
+}
+
+.menu-notification[data-notification="none"] [class^="icon-"] {
+  color: grey;
+}
+
+.menu-notification[data-notification="none"]:hover {
+  background: #ecf0f1;
+}
+
+.menu-notification[data-notification="none"]:hover a {
+  cursor: default;
+}
+
+
+.menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.menu a {
+  width: 100%;
+  display: block;
+  padding: 10px 5px 10px 15px;
+}
+
+.menu a:hover {
+  background: #AECDFF;
+  text-decoration: none;
+}

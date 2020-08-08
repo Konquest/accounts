@@ -1,4 +1,7 @@
+/* http://colorschemedesigner.com/#3G21TkQ--vywV */
+
 @import "layouts.css";
+@import "navigation.css";
 @import "login.css";
 
 * {
@@ -9,9 +12,11 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
-  background: #0e83cd;
+  background: #68A3FF;
   min-width: 320px;
   color: white;
+  margin: 0;
+  overflow-x: hidden;
 }
 
 a {
@@ -29,24 +34,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 { 
-  font-size: 5em;
+  font-size: 4em;
   text-shadow: 0px 3px 2px rgba(0, 0, 0, 0.5);
 }
 
 h2 {
-  font-size: 4em;
-}
-
-h3 {
   font-size: 3em;
 }
 
-h4 {
+h3 {
   font-size: 2em;
 }
 
+h4 {
+  font-size: 1.1em;
+}
+
 h5 {
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 .navgiation {
@@ -59,3 +64,6 @@ h5 {
   }
 }
 
+input:focus {
+  outline: none;
+}
